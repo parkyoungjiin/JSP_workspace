@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="test5.js"></script>
+<script type="text/javascript">
+/*
+ * 매개변수 , 리턴 값 모두 있는 함수
+  - 매개변수 여러개, 리턴 값은 하나만.
+ */
+ 
+ 
+ var maxNum = 0;
+function max(num1, num2){
+	if(num1 > num2){
+		maxNum = num1;
+	}else{
+		maxNum = num2;
+	}
+		return maxNum;
+}
+
+var result = max(50,2);
+
+var loginResult = login("admin", "134");
+
+document.write(loginResult);
+
+
+
+</script>
+</head>
+<body>
+
+</body>
+</html>

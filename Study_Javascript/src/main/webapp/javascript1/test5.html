@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title> <!--  타이틀 밑에 스크립트 무조건 -->
+<script type ="text/javascript">
+// 자바 스크립트에서는 똑같이 주석 사용
+// if문 (자바와 동일)
+
+
+// 사용자의 나이를 입력받아 나이를 판별
+
+
+// var age = prompt("나이를 입력하시오");
+// //prompt로 입력받은 데이터 타입 -> 문자 데이터(String)
+// document.write("<h3>" + age + "(데이터타입 : " +typeof(age)  +")</h3>");
+
+// //입력받은 나이 10대 여부 판별
+// // 자바스크립트에서 문자로 입력되지만, 이를 따로 변환할 필요가 없다. (숫자 타입과 연산을 수행할 때 자동으로 숫자타입으로 변환해준다.)
+// if(age >= 10 && age <= 19 ){
+// 	alert("10대 입니다.") //10살 이상, 20세 미만 (19세 이하)
+// 	document.write("10대 입니다.");
+	
+// 	// alert 는 팝업창, document.write는 웹 화면
+	
+// }else{
+// 	alert("10대가 아닙니다.") //10살 이상[이고] 20세 미만 (19세 이하)
+// 	document.write("10대가 아닙니다.");
+	
+// };// if문
+
+
+var num = prompt("정수를 입력하시오");
+
+switch(num){
+	case "1":
+		document.write("<h3> 입력된 값은 1 입니다.</h3>")
+		break;
+	case "2":
+		document.write("<h3> 입력된 값은 2 입니다.</h3>")
+		break;
+	case "3":
+		document.write("<h3> 입력된 값은 3 입니다.</h3>")
+		break;
+	default :
+		document.write("<h3> 일치하는 값이 없습니다.</h3>")
+			
+		//switch는 단순 연산이 아니라, 단순 비교이기에 case문으로 비교할 때 문자열 형태로 비교를 해야 한다.
+}
+
+
+
+</script>
+</head>
+<body>
+
+</body>
+</html>

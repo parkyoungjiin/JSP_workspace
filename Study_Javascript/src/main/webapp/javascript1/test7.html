@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+// 형 변환
+// 첫 글자를 대문자로 지정하여 형변환 연산자를 사용 가능하다.
+// 데이터타입(데이터) 
+
+//1. 문자(String)타입으로 변환
+	var value1 = 1;
+	document.write(value1 + " => 변환 전 타입 : " +typeof(value1) + "<br>" )
+	
+	value1 = String(value1); // String으로 형 변환 , 첫 글자는 무조건 대문자
+	document.write(value1 + " => 변환 후 타입 : " +typeof(value1) + "<br>")
+	
+	
+	var value2 = true; // boolean
+	document.write(value2 + " => 변환 전 타입 : " +typeof(value2) + "<br>")
+	
+	value2 = String(value2);
+	document.write(value2 + " => 변환 후 타입 : " +typeof(value2) + "<br>")
+	
+	document.write("10" / "5"); // String 나누기 String인데 number로 형변환되어 연산이 가능해진다.
+	document.write("<br>");
+	
+	var strNum = prompt("정수를 입력하세요");
+	document.write(strNum + " => 변환 전 타입 : " +typeof(strNum) + "<br>" )
+	
+	var num = Number(strNum);
+	document.write(num + " => 변환 후 타입 : " +typeof(num) + "<br>" )
+
+	//switch case문에서 case 문 사용 시 문자 데이터일 경우 숫자로 자동 변환이 일어나지 않으므로
+	// 강제 형변환을 통해 number타입으로 변환이 가능하다.
+	switch(Number(strNum)){
+	case 1:
+		document.write("<h3> 입력된 값은 1 입니다.</h3>")
+		break;
+	case 2:
+		document.write("<h3> 입력된 값은 2 입니다.</h3>")
+		break;
+			
+// 		switch는 단순 연산이 아니라, 단순 비교이기에 case문으로 비교할 때 문자열 형태로 비교를 해야 한다.
+
+	}// switch 문 끝
+	document.write("<hr>");
+	
+	//String -> Number로 변환 시 다른 데이터가 섞여 있을 경우, 변환 과정에서 Number타입으로 변환은 일어나지만, 데이터에 특수한 값이 저장된다.
+	
+	var strNum2 = "1234a"; // 숫자 이외의 다른 데이터가 있음.
+	document.write(strNum2 + " => 변환 전 타입 : " +typeof(strNum2) + "<br>" )
+	
+	var num2 = Number(strNum2);
+	document.write(num2 + " => 변환 후 타입 : " +typeof(num2) + "<br>" )
+	
+	//NaN : Not a Number (숫자가 아닌 데이터라는 의미의 특수한 값이다.);
+	
+	document.write("<hr>");
+	
+	var age = 15;
+	
+
+	age = parseInt(age / 10)
+	
+	document.write(age); //1.5가 출력된다.(연산 결과는 실수 형태 그대로)
+	
+	if(age == 1) {
+	document.write("<br>10대입니다!");		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</script>
+
+
+
+
+</head>
+<body>
+
+</body>
+</html>

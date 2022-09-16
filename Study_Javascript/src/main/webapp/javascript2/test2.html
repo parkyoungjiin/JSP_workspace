@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function showMessage(){
+		alert("showMessage() 함수 호출됨!");
+	}
+
+</script>
+</head>
+<body>
+	<h1>test2.html 사용자 정의 함수</h1>
+	<!--  함수 호출됨에 자바 스크립트를 넣으면 해당 자바 스크립트가 실행된다. -->
+	<input type = "button" value ="함수호출" onclick="alert('함수 호출됨!')"> 
+
+	<input type = "button" value = "함수호출2" onclick = "showMessage()">
+	
+	<script src= test1.js" ></script> 
+	
+	<input type = "button" value = "함수호출3" onclick = "printName()">
+	<!-- 
+	html 태그 요소에 onXXX 속성을 사용하면 xxx기능이 동작할 때 지정된 자바스크립트 코드가 실행된다.
+	ex) onclick 속성 => 해당 요소를 "클릭"하면 동작한다.
+	*** onclick ***  ="자바스크립트코드" 지정 시 "클릭"하면 자바스크립트가 실행된다.
+	** onclick 사용 시 alert 사용할 때 안의 따옴표를 작은 따옴표('')를 사용해야 한다. ** 
+	 -->
+
+
+</body>
+</html>

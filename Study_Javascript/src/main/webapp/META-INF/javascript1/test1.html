@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- <script 태그를 사용하여 자바스크립트를 작성할 영역을 표시(자바스크립트 선언문) -->
+<script type="text/javascript">
+// 	자바스크립트 내에서 한 줄 주석 사용법.
+	/*
+	자바스크립트 내에서 범위 주석 사용법
+	*/
+// 	alert("자바스크립트 실행됨!"); //system.out.println과 비슷한 문법.(알림창) 기술된 순서대로 실행된다.
+// 	alert ("alert() 함수 호출됨!")
+	// alert()함수는 함수 파라미터로 전달받은 데이터를 웹브라우저 다이얼로그를 통해 출력하는 역할을 수행한다.
+	
+	/*
+	[자바스크립트에서 변수 사용법]
+	- 기본 문법 : 데이터타입 변수명 = 값;
+	- 직접 데이터타입을 쓸 일은 없다.
+	- 자바의 데이터타입과 동일한 타입을 사용하지 않는다.(동일한 타입도 존재)
+	- 다만, 별도의 타입을 지정하지 않고 공통 타입으로 변수를 선언하며 저장되는 데이터에 따라 해당 변수의 데이터타입이 자동으로 결정된다.
+	=> 변수 선언 시, var, let , const 중 하나를 타입처럼 사용.
+	
+	*/
+
+	var str ="자바 스크립트";
+	// 자바스크립트에서는 문자, 문자열 구분이 없다.
+	
+// 	alert(str); str변수에 저장된 데이터를 웹브라우저에 출력
+
+// 특정 변수 또는 데이터의 데이터타입 확인 방법:typeof키워드 사용
+	// typeof 변수명 , typeof 데이터 , typeof(변수명) typeof(데이터)를 사용
+// 	alert("str 변수값 = " + str + ", str 변수 타입 = " + typeof(str))
+	
+	var num = 100;
+	
+// 	alert("num 변수값 = " + num + ", num 변수 타입 = " + typeof(num))
+	
+	
+	num = 3.14;
+	
+// 	alert("num 변수값 = " + num + ", num 변수 타입 = " + typeof(num))
+
+	var b = true;
+	
+// 	alert("b 변수값 = " + b + ", b 변수 타입 = " + typeof(b))
+	
+	//자바스크립트 특수한 타입
+	var v1; //선언만
+	// 선언만 하고 아무 데이터를 저장하지 않을 경우 값이 정해지지 않았으므로
+	// undefined값이 저장되고 데이터타입도 undefined로 취급
+	alert("v1 변수값 = " + v1 + ", v1 변수 타입 = " + typeof(v1))
+	
+	var v2 = null;
+	//변수에 특수값인 null 저장 시 object라는 객체타입으로 취급
+	//
+	alert("v2 변수값 = " + v2 + ", v2 변수 타입 = " + typeof(v2))
+	
+	// ===============변수 사용 연습====================
+	// document.write()함수를 호출하여 웹페이지에 출력할 데이터를 전달하면 화면에 그대로 출력
+	// => 함수 내의 파라미터에는 문자열 형태로 html 태그를 그대로 사용 가능
+	
+	var date = 100;
+// 	document.write(date); //data 변수 값을 웹 브라우저에 표시(출력)
+	// html 태그를 적용한 data 변수값 출력
+// 	document.write("<h3>date = " + date + "</h3>"); //
+	
+// 	date = 200;
+	
+// 	document.write("<h3>date = " + date + "</h3>"); //
+	
+	var date2 = "Hello, World"
+	
+	document.write("<h3>date2 = " + date2 + "</h3>" + "<br>");
+	
+	
+// 	변수 선언 시 var 대신 let사용
+	let data3 = "Hello world";
+	document.write(data3 + " : " + typeof(data3) + "<br>");
+	
+	data3= 50; //string -> number 타입 변경
+	
+	document.write(data3 + " : " + typeof(data3) + "<br>");
+	
+	</script>
+
+</head>
+<body>
+	<script type="text/javascript">
+// 		alert("body 태그 내의 자바스크립트");
+		document.write("이 곳은 body 영역 h1 태그 앞입니다.");
+		
+	</script>
+	
+	<h1>이 곳은 body 태그 영역입니다.</h1>
+	
+	<script type="text/javascript">
+	
+		document.write("이 곳은 body 영역 h1 태그 뒤입니다.");
+		
+	
+	
+	
+</script>
+</body>
+</html>

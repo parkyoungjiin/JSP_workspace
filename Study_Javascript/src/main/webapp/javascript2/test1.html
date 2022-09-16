@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+// < 사용자 정의함수 기본 문법 >
+// 	- function 메서드명([매개변수...]);
+
+// < 사용자 정의함수 특징 >
+// 	- 자바과 달리 접근제한자, 리턴타입이 오지 않는다.
+// 	- 파라미터 변수 지정 시 데이터타입도 명시하지 않음.
+// 	- 함수를 정의할 경우 반드시 호출을 통해 실행 가능하다.
+
+function showMessage(){
+	alert("showMessage 함수 호출됨.");
+}
+// 반드시 호출을 통해 실행이 가능하다.
+var total = 0;
+
+function sum(){
+	for(var i = 1; i<=10; i++){
+		total += i; 
+	}
+		alert(total);
+}
+
+sum();
+
+// 외부 스크립트 파일을 불러오기 전에 먼저 호출하면 오류 발생
+
+
+</script>
+<!--  test1.js 파일 불러오기(자바 스크립트 파일 불러오기) -->
+
+<script src ="test1.js"></script>
+<body>
+	<h1>test1.html - 사용자 정의 함수</h1>
+</body>
+</html>
