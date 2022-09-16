@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<!--  입력양식을 하나로 묶어줄 form 태그 -->
+<form action="test4_result.html">
+	<input type="text" ><br>
+
+	<label>아이디 : </label><input type="text" placeholder="아이디를 입력하시오"><br>
+	
+	<label>비밀번호 : </label><input type="password" placeholder="패스워드를 입력하시오"><br>
+	
+	<input type="text" name = "name" value="홍길동"><br>
+
+	<input type="text" value="홍길동" readonly="readonly"><br>
+
+	<input type="number"><br>	
+	
+	<hr>
+	
+	취미 :
+	<input type="checkbox">등산
+	<input type="checkbox" checked="checked">헬스
+	<input type="checkbox" name="programing">프로그래밍
+	
+	<br>
+	
+	
+	성별 : 
+	<input type="radio" name="gender">남
+	<input type="radio" name="gender" checked="checked">여
+	<br>
+	
+	날짜 :
+	<input type="date">
+	<input type="button" value="검색">
+	
+	<hr>
+	직업 : 
+	<select>
+	
+		<option selected="selected">직업을 선택하세요</option>
+		<option>개발자</option>
+		<option disabled="disabled">건물주(선택불가)</option>
+		<option>아르바이트생</option>
+		
+	
+	</select>
+	
+	<hr>
+	
+	
+	자기소개 :
+	<textarea rows="5" cols="20"></textarea>
+		
+	<hr>
+	
+	<input type="submit" value="가입">
+	<input type="submit" value="초기화">
+	
+
+
+</form>
+
+
+
+
+</body>
+</html>
