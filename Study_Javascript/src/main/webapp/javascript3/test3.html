@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+/*
+ * Date 객체
+ - 날짜, 시각 정보를 관리하는 내장 객체
+ */
+
+// Date 객체의 인스턴스 생성
+// 1. 현재 날짜를 기준으로 인스턴스 생성
+	var now = new Date(); // 소괄호 안에 아무것도 전달하지 않음.
+	document.write(now + "<br>")
+	
+	
+// 2. 특정 날짜를 지정하여 인스턴스 생성
+// 	var now2 = new Date("2000-01-01"); // 소괄호 안에 문자열로 날짜 전달
+// 	document.write(now2 +"<br>");
+	
+// 3. 특정 날짜 및 시각을 지정하여 인스턴스 생성
+	
+// 	var now3 = new Date("2010-12-31T23:59:59"); // 소괄호 안에 문자열로 날짜 전달
+// 	document.write(now3 +"<br>");
+// ======================================================================
+
+	// date 객체의 메서드 활용
+// 	1. getFullYear()
+
+	var now4 = new Date(2020, 10, 10, 13, 20 ,50); //년, 월, 일, 시, 분, 초
+	document.write(now4 + "<br>")
+	
+	
+	var year = now.getFullYear();
+	var month = now.getMonth() +1;  //월의 경우는 0~11이기에 +1을 해야 1월~12월이 출력된다.
+	var day = now.getDate();
+	var hour = now.getHours();
+	var min = now.getMinutes();
+	var sec = now.getSeconds();
+	document.write("연도 : " + year + "년" + month + "월"+ day + "일" + hour + "시" + min +"분" + sec + "초" +"<br>");
+	
+	
+	
+	document.write(now.toLocaleString());
+	document.write("<hr>");
+	
+	///Date 객체의 toLocaleString() 메서드를 활용하면
+	//각 국가의 표기법에 맞는 날짜 및 시각 형식으로 변환됨.
+	
+	
+	//Date 객체의 getTme() 메서드를 활용하여 날짜 계산
+	
+	var today = new Date();// 오늘 (현재) 을 기준으로 Date 객체 생성 (today 인스턴스 => 현재 날짜 객체)
+	
+	
+	today.setHours(0);
+	today.setMinutes(0);
+	today.setSeconds(0);
+	
+	var targetDay = new Date("2022-09-23"); // 대상 날짜를 지정하여 Date 객체를 생성 (targetDay 인스턴스 => 목표 날짜 )
+	//날짜 출력 
+	document.write("today = " + today.toLocaleString() + "<br>")
+	document.write("targetDay = " + targetDay.toLocaleString() + "<br>") // 대상날짜
+	
+	
+	document.write("<hr>");
+	
+	//getTime으로 시간을 받음.
+	var getTimeToday = today.getTime();
+	var getTimeTargetDay =  targetDay.getTime();
+	
+// 	document.write("today = " + getTimeToday() + "<br>")
+// 	document.write("targetDay = " + getTimeTargetDay + "<br>")
+	
+	//getTimeToday를 기준으로 대상 날짜 (getTimeTargetDay)와의 차이 계산 => 현재 - 목표날짜 했을 때 음수가 나오면 다가올 날, 양수는 지나간것 
+	var difference =  getTimeToday = getTimeTargetDay;
+	// 결과값이 밀리초 단위이므로 이를 일, 연 등등으로 변환해야 함
+	// ex) 밀리초 -> 초(/1000) -> 분(/60) -> 시(/60) -> 일(/24)
+	// 거꾸로는 곱해서 계산.
+	
+// 	var convertTime = difference / 1000 / 60 / 60 / 24;
+	
+	
+	var convertTime = Math.round(difference / 1000 / 60 / 60 / 24);
+	
+	if(convertTime > 0) { //양수는 지나간 것
+		document.write(convertTime + "일 지났습니다.")
+	}else if(convertTime < 0 ){ // 음수는 다가올 날 객체의 ABS() 사용 (절대값 출력)
+		document.write(Math.abs(convertTime) + "일 남았습니다.")
+		
+	}else {
+		document.write("오늘입니다.")
+		
+	}
+// 	document.write(convertTime);
+	
+	
+	
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

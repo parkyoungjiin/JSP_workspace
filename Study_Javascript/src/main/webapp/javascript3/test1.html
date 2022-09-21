@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+/*
+//1. 변수(var let const)
+//2. 함수(내장 함수, 사용자 정의 함수)
+//3. 객체(내장 객체, 사용자 정의 객체)
+
+// [자바스크립트에서의 객체]
+	var 객체변수명 = {
+		//키 : 값 형태로 객체 내의 속성 정의(= 변수명 : 데이터);
+		//키n : 값n
+		//접근할 때는 키.값 으로 접근
+		
+		
+*/ // 객체를 저장하고 있는 person의 변수의 타입은 객체라는 의미의 object 타입이 된다.
+	var person = {
+			name : "홍길동",
+			age : 20,
+			hobby : ""
+		}
+	//person 변수의 타입은 Object로 출력된다.	
+	
+	document.write("person 변수의 타입 : " + typeof(person) + "<br>")
+	
+	document.write("<hr>")
+
+	// 값 가져오기
+	document.write("이름(name) : " + person.name + "<br>")
+	document.write("나이(age) : " + person.age + "<br>")
+	document.write("취미(hobby) : " + person.hobby + "<br>")
+	
+	// 값 변경하기 
+	person.name = "이순신"
+	person.age = "44"
+	person.hobby = "없음"
+	
+	//변경 후
+	
+	document.write("<h3>변경 후</h3>")
+	
+	document.write("이름(name) : " + person.name + "<br>")
+	document.write("나이(age) : " + person.age + "<br>")
+	document.write("취미(hobby) : " + person.hobby + "<br>")
+
+	//객체에 새로운 property를 추가 ( 새로운 키, 값을 저장)
+	person.isHungry = "true"
+	person.height = 180.5;
+	
+	document.write("<h3><추가 후></h3>")
+	
+	//변수, 메서드 앞에 is가 붙으면 boolean 타입으로 인식
+	document.write("추가된 isHungry(isHungry) : " + person.isHungry + "<br>")
+	document.write("추가된 height(height) : " + person.height + "<br>")
+	
+	//4. 객체 내의 프로퍼티 삭제 => delete 연산자 사용(delete 객체명.키)
+	// => 삭제 후 프로퍼티는 존재하지 않으므로 값 출력 시 undefied 출력됨.
+	delete person.height
+	
+	document.write("삭제된 height(height) : " + person.height + "<br>")
+	
+	// 5. 객체 내 특정 프로퍼티 존재 여부 확인
+	// => "키" in 객체명 
+	document.write("<h3>특정 프로퍼티 존재 확인</h3>")
+	document.write("name 이라는 키가 존재합니까? " +("name" in person ) + "<br>")
+	document.write("height 이라는 키가 존재합니까? " + ("height" in person ) + "<br>")
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>
