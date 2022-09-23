@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+ // document 객체는 html 문서 자체의 정보를 담고 있으며, 문서의 시작을 가리킨다.
+ // => dom의 진입점 역할을 수행한다.
+ // => document. 객체를 통해 문서의 구성요소를 접그 가능()
+	document.write("document 객체 : " + document + "<br>"); // object HTMLDocument 출력 document는 전체를 관리
+	
+	document.write("document.documentElement :" + document.documentElement + "<br>") // object HTMLHtmlElement , html 태그를 관리 (범위)
+ 
+	document.write("document.head :" + document.head + "<br>") // object HTMLHeadElement , head 태그를 관리 (범위)
+	document.write("document.body :" + document.body + "<br>") // object HTMLHeadElement , head 태그를 관리 (범위)
+</script>
+</head>
+<body>
+	<h1>test8.html</h1>
+	<div>목록 시작</div>
+	<ul>
+		<li>항목1</li>
+		<li>항목2</l1>
+	
+	</ul>
+	<div>목록 끝</div>
+	<script type="text/javascript">
+	// <body> 태그 내의 각 자식요소들을 차례대로 접근
+	// => document 객체의 body객체를 통해 childNodes 객체에 접근 시 자식 노드 접근 가능
+	// 모든 자식을 차례대로 접근 가능하다.
+		for(let i = 0; i < document.body.childNodes.length; i++){
+			alert(document.body.childNodes[i] + " : " + document.body.childNodes[i].nodeName + "<br>");
+		}
+				 
+	</script>
+	<!--  이부분은 script 태그보다 아래쪽에 위치하므로 script 태그 실행 시점에서는 아직 로딩 전이다ㅣ.
+	그렇기에 위의 스크랩트 내에서 자식 노드 접근 시 아래쪽 h1태그는 포함되지 않는다. -->
+	<h1>태그 자식 노드 접근 후 </h1>
+</body>
+</html>

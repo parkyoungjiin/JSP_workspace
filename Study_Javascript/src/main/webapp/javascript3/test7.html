@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>document 객체 기초</title> <!--  타이틀이란 웹 페이지 상단에 떠있는 문자를 말함. -->
+<script type="text/javascript">
+
+	function func1(){
+		//title을 출력 => document.title
+		alert(document.title)
+	}
+	function func2(){
+		//title 변경 => document.
+		document.title = "변경된 타이틀";
+	}
+	function func3(){
+		//문서 색상 정보 확인 (bg = background , fg = Foregroung Color (전경색, 글자 색상))
+		alert("bgcolor : " + document.bgColor + "\nfgcolor : " + document.fgColor);
+		//html 문서 색상 정보 변경
+		
+		
+	}
+	function func4(){
+		document.bgColor = "#FFFF00";
+		document.fgColor = "#0000FF";
+	}
+	// 파라미터로 전달받은 색상명을 사용하여 배경색 변경하기
+	function func5(color){
+		document.bgColor = color;
+
+	}
+</script>
+</head>
+<body>
+	<h1>document 객체기초</h1>
+	<input type = "button" value = "문서 제목 출력" onclick ="func1()"><br> 
+	<input type = "button" value = "문서 제목 변경" onclick ="func2()"><br> 
+	<input type = "button" value = "문서 배경색 출력" onclick ="func3()"><br> 
+	<input type = "button" value = "문서 배경색 변경" onclick ="func4()"><br> 
+	<hr>
+	<!--  라디오 버튼을 사용하여 선택 시 지정된 색상으로 배경색 변경
+	이 때, 함수 호출 시 파라미터로 색상명을 전달하여 함수 내에서 해당 색상을 사용 가능
+	 -->
+	
+<!-- 	<input type ="radio" name = "bgcolor" value = "CYAN" onclick = "func5('CYAN')">CYAN	 -->
+<!-- 	<input type ="radio" name = "bgcolor" value = "MAGENTA" onclick = "func5('MAGENTA')">MAGENTA	 -->
+<!-- 	<input type ="radio" name = "bgcolor" value = "GARY" onclick = "func5('GRAY')">GRAY -->
+
+<!--  value속성을 색상명으로 지정했을 경우 함수 호출 시 파라미터에
+직접 색상명 전달 대신 this.value 값을 전달해도 동일한 색상명이 전달된다.(value 값 전달)
+=> 태그 내에서this의 의미는 해당 태그 자체(태그 객체)를 의미하며
+this.속성명 지정 시 해당 태그 내 의 특정 속성값을 지정하는 용도로 사용된다. -->
+
+
+	<input type ="radio" name = "bgcolor" value = "CYAN" onclick = "func5(this.value)">CYAN	
+	<input type ="radio" name = "bgcolor" value = "MAGENTA" onclick = "func5(this.value)">MAGENTA	
+	<input type ="radio" name = "bgcolor" value = "GARY" onclick = "func5(this.value)">GRAY
+
+</body>
+</html>

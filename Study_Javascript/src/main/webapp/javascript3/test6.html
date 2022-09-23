@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+	function func1() {
+		alert(history.length);
+	}
+	function func2() {
+		//웹브라우저에 저장된 페이지 방문 기록 중, 현재 페이지 기준 이전 페이지로 이동
+		// 뒤로가기 버튼과 동일 = 1단계 이전 페이지로 이동
+		history.back();
+	}
+	function func3() {
+		history.forward();
+	}
+	function func4() {
+		history.go(-2);
+	}
+	function func5() {
+		history.go(2);
+	} 
+
+</script>
+</head>
+<body>
+	<input type = "button" value = "방문 기록 갯수 확인" onclick ="func1()"><br> 
+	<input type = "button" value = "이전 페이지" onclick ="func2()"><br> 
+	<input type = "button" value = "다음 페이지" onclick ="func3()"><br> 
+	<input type = "button" value = "2단계 이전 페이지" onclick ="func4()"><br> 
+	<input type = "button" value = "2단계 다음 페이지" onclick ="func5()"><br> 
+
+</body>
+</html>
