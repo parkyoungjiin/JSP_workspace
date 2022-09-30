@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+// 	let btnChangeImg = document.getElementById("btnChangeImg");
+// 	alert(btnChangeImg); 
+// 위 시점에서는 body가 로딩되기 직전이기에, null이 출력된다.
+	function load(){
+		alert("load()");
+		
+	}
+
+	window.onload = function(){ // body 실행 후 함수가 실행된다.
+	// 이 함수 내에서는 body영역의 모든 요소에 접근이 가능해진다. 로딩이 완료되었기 때문 ! (onload !)
+// 	alert("load2()");
+// 	let btnChangeImg = document.getElementById("btnChangeImg");
+// 	alert(btnChangeImg);	
+	
+	//이미지 교체 버튼을 클릭 했을 때 이벤트를 처리하고 싶음.
+	// => 대상요소 객체명. onxxx이벤트명 = 함수명; 
+	// =>****주의**** => 함수를 전달하기만 하므로 호출 코드가 기술되서는 안된다.
+	// => 즉, 함수명 대신 함수명() 사용불가
+	
+		btnChangeImg.onclick = changeImage;
+// 		document.getElementById("btnRecoveryImg").onclick = changeImage2;
+		document.getElementById("btnRecoveryImg").onclick = function(){
+			let image = document.getElementById("img")
+			image.src = "1.jpg";
+		};
+	};// window.onload 끝
+	
+	function changeImage(){
+		// "img" 라는 id 선택자를 지정하여 해당 객체 가져오기
+		let image = document.getElementById("img")
+		
+		image.src = "2.jpg"; // 기존의 1.jpg에서 2.jpg로 바꿈.
+		
+		
+	}
+	
+	function changeImage2(){
+		let image = document.getElementById("img")
+		image.src = "1.jpg";
+	}
+</script>
+</head>
+<body>
+	<h1>test11.html</h1>
+
+
+	<img src ="1.jpg" id ="img" width = "200" height ="200"><br>
+	<button id = "btnChangeImg">이미지 교체</button>
+	<button id = "btnRecoveryImg">이미지 복원</button>
+	
+	<hr> <!--  사진 교체 끝 -->
+</body>
+</html>

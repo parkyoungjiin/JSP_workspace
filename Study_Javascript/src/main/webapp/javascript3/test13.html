@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+// ******form 태그 내의 각 요소에 접근하는 방법 ******
+// document.form태그name속성값.접근할태그name속성값.속성명
+// document.form태그name속성값.접근할태그name속성값.함수명
+// => 속성명 : name, type, value 등
+// => 함수 : focus() : 대상에 커서 요청
+// 			 blur() : 대상에서 포커스 해제
+// 			 select() : 대상에 포커스 요청 및 입력 항목값 블럭 지정
+
+
+	function requestFocus(){
+		document.fr.id.focus(); //fr폼의 id에 포커스를 한다 !
+	}
+	function showInfo(){
+		document.querySelector("#infoArea").innerHTML = 
+			"아이디 : " + document.fr.id.value + "<br>" +
+			"패스워드 : " + document.fr.passwd.value + "<br>" +
+			"자기소개 : " + document.fr.ta.value + "<br>";
+	}
+	function check(){
+		if(document.fr.id.value.length == 0){
+			alert("아이디를 입력하세요");
+			document.fr.id.focus();
+			return;
+// 			document.form태그명.접근할태그명.속성 및 함수명
+		}else if(document.fr.passwd.value == ""){
+			alert("비밀번호를 입력하세요");
+			document.fr.passwd.focus();
+			return;
+		}else if(document.fr.ta.value == ""){
+			alert("자기소개를 입력하세요");
+			document.fr.ta.focus();
+			return;
+		}
+		
+		document.fr.submit();
+		// => 주의 ! if문 종료 후 submit() 함수 호출 시 입력값이 없을 경우에도 submit() 함수가 호출될 수 있으므로
+		// 모든 입력이 정상적으로 되어 있을 경우에만 실행되도록 해야 함
+		// => 1. 마지막 else문을 통해 submit 사용
+		// => 2. 미입력 방지 작업을 수행
+	}
+</script>
+</head>
+<body>
+	<h1>test13.html - form 태그 이벤트</h1>
+	<!--  form 태그 내의 입력항목 요소에 required = "required" 속성 지정 시
+	해당 항목이 입력되지 않은 상태에서 submit 동작이 수행되지 않음(입력 요청 동작 일어남)
+	 -->
+	<form action="test13_2.html" name = "fr">
+	
+		아이디 <input type="text" name="id" required="required">
+		<input type ="button" value ="focus()"onclick ="requestFocus()"> <!--  클릭 시 requestFocus() 함수를 실행시키는데, id칸에 focus를 하는 함수이다.-->
+		<input type ="button" value ="blur()"onclick ="document.fr.id.blur()">
+		<input type ="button" value ="select()"onclick ="document.fr.id.select()">
+		
+		<!-- select는 전체 선택, focus는 맨뒤 -->
+		<br>
+		패스워드<input type="password" name="passwd"  required="required">
+		<br>
+		자기소개<textarea rows="5" cols="20"name ="ta"  required="required"></textarea>
+		<br>
+		<input type="button" value ="입력값 출력" onclick="showInfo()">
+		<input type="button" value ="입력값 확인" onclick="check()">
+		<input type="submit" value ="회원가입">
+	</form>
+	<div id = "infoArea"></div>
+
+</body>
+</html>

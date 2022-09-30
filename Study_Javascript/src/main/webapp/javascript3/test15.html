@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function check(){
+// 		let divArea = document.getElementById("infoArea"); // **getElementById 와 querySelector(""#아이디") 같이 사용하기**
+// 		divArea.innerHTML = "확인";
+		
+		
+		document.getElementById("infoArea").innerHTML = document.fr.fruits.value;
+		
+	}//check 끝
+	function check2(){
+// 		if(document.fr.fruits4.value == ""){
+// 			alert("과일 선택 필수!")
+// 			document.fr.fruits4.focus();
+// 		}else{
+// 			document.getElementById("infoArea").innerHTML = document.fr.fruits4.value;
+
+// 		}
+
+		if(document.fr.fruits4.options[0].selected){
+			alert("과일 선택 필수!")
+			document.fr.fruits4.focus();
+		}else if(document.fr.fruits4.options[1].selected){
+			//선택 완료된 항목은 목록에서 선택 불가능하도록 변경(상품 품절)
+			document.fr.fruits4.options[1].disabled = true;
+		}
+			
+	
+		
+	}//check2 끝
+	
+	function itemSelected(item){
+// 		document.getElementById("").innerHTML 
+// 		document.getElementById("infoArea").innerHTML = document.fr.fruits5.value;
+		
+		//텍스트박스에 선택항목 표시 -> select 옆에 텍스트박스가 생김.
+		
+		document.fr.selectedFruit.value = item;
+		
+	}
+</script>
+</head>
+<body>
+	<h1>test15.html</h1>
+	<form action="" name = "fr">
+		<select name = "fruits"> 
+			<option value = "Apple"> 사과</option>
+			<option value = "Starwberry"> 사과</option>
+			<option value = "Banana">바나나</option>
+			
+		</select>
+		
+		<input type = "button" value = "확인" onclick = "check()">
+	<hr>
+		<select name = "fruits2"> 
+			<option value = "Apple"> 사과</option>
+			<option value = "Starwberry" disabled="disabled"> 사과</option>
+			<option value = "Banana" selected="selected">바나나</option>
+			
+		</select>
+	<hr>
+		<select name = "fruits3" size = "2"> 
+			<option value = "Apple"> 사과</option>
+			<option value = "Starwberry" disabled="disabled">딸기</option>
+			<option value = "Banana" selected="selected">바나나</option>
+			
+		</select>
+	<hr>
+		<select name = "fruits4"> 
+			
+			<option value = "" selected="selected">선택하세요</option>
+			<option value = "apple">사과</option>
+			<option value = "Starwberry"> 딸기</option>
+			<option value = "Banana">바나나</option>
+			
+		</select>
+		<input type="button" value ="확인" onclick = "check2()">
+	<hr>	
+		<!-- 셀렉트 박스 항목 변경을 감지하는 이벤트 : onchange
+		함수 호출 시 선택된 항목의 value 속성값을 전달하기 위해 this.value 를 파라미터로 전달
+		 -->
+		<select name = "fruits5" onchange ="itemSelected(this.value)"> 
+			
+			<option value = "" selected="selected">선택하세요</option>
+			<option value = "apple">사과</option>
+			<option value = "Starwberry">딸기</option>
+			<option value = "Banana">바나나</option>
+			
+		</select>
+		<input type ="text" name = "selectedFruit">
+	</form>	
+	
+	<div id ="infoArea"></div>
+	
+	
+</body>
+</html>

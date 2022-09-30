@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function clickbutton(){
+		alert("클릭했습니다.");
+	}
+	function clickbutton2(){
+		alert("클릭2했습니다.");
+	}
+	function mouseover(){
+		let divArea = document.getElementById("infoArea"); // divArea라는 변수에 infoArea라는 id를 가진 요소를 대입.
+		divArea.innerHTML = "마우스 오버!" // divArea.innerHTML 을 통해 div 구역에 마우스 오버가 작성된다.
+		
+	}
+	function mouseout(){
+		let divArea = document.getElementById("infoArea");
+		divArea.innerHTML = "마우스 아웃!"
+	}
+		
+	function changeColor(color){
+// 		document.getElementById("name").style.background = color;			
+		let ele = document.getElementById("name");
+		
+		ele.document.style.background = color;
+	}
+</script>
+</head>
+<body>
+	<h1>test10.html</h1>
+	<input type="button" value ="클릭" onclick="clickbutton()">
+	<input type="button" value ="클릭2" onclick="clickbutton2()">
+	<input type="button" value ="마우스를 가져다대세요" onmouseover = "mouseover()" onmouseout = "mouseout()">
+	<div id = "infoArea"></div>
+<!-- 	한 버튼에 2가지 기능 작성을 위해서는 연속으로 작성 가능. -->
+	<hr>
+	이름 : <input type ="text" id ="name" onfocus = "changeColor('SKYBLUE')" ><br>
+	나이 : <input type ="text"><br>
+</body>
+</html>

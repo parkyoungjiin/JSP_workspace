@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function printCheckbox(){
+		//체크박스에서 name 속성이 같은 요소들은 모두 하나의 배열로 관리됨.
+		let divInfoArea = document.querySelector("#infoArea");
+		
+		
+// 		for(let i = 0 ; i < document.fr.hobby.length; i++){
+			
+// 			alert(document.fr.hobby[i].value + " : " + document.fr.hobby[i].checked);
+// 		}
+	let arrHobby = document.fr.hobby // -> 반복 제거를 위해 특정 요소까지의 속성을 변수에 저장 가능 ( 문장이 깔끔해진다. )
+	
+	
+// 	for(let i = 0 ; i < arrHobby.length; i++){
+			
+// 			alert(arrHobby[i].value + " : " +arrHobby[i].checked);
+// 		}
+	
+// 	for(hobby of document.fr.hobby){
+// 		alert(hobby.value + " : " + hobby.checked)
+// 	} //for of 문 사용 한 것, 복습하기
+	
+	
+// 	if(!arrHobby[0].checked && !arrHobby[1].checked && !arrHobby[2].checked) {
+// 		alert("취미 하나이상 선택")
+// 		return;	
+// 	}
+
+
+	let isChecked = false;
+	for(hobby of document.fr.hobby){
+		if(hobby.checked){
+			isChecked = true;
+		}
+	}
+
+	
+	if(!isChecked){
+		alert("취미 하나이상 선택");
+		return;	
+	}
+
+}// printCheckBox 끝
+
+function printRadio(){
+	if(!document.fr.gender[0].checked && !document.fr.gender[1].checked) {
+		alert("성별 선택 필수!");
+		return;
+	}
+	
+	
+}// printRadio 끝
+
+
+function checkAll() {
+	if(document.fr.hobbyAll.checked){
+		document.fr.hobby[0].checked = true;
+		document.fr.hobby[1].checked = true;
+		document.fr.hobby[2].checked = true;
+	}else
+		document.fr.hobby[0].checked = false;
+		document.fr.hobby[1].checked = false;
+		document.fr.hobby[2].checked = false;
+}
+
+</script>
+</head>
+<body>
+	<h1>test14.html</h1>
+	<form action="test14_2.html" name ="fr">
+	
+	
+	취미 : 
+	<input type="checkbox" name ="hobby" value ="게임" checked="checked">게임
+	<input type="checkbox" name ="hobby" value ="등산">등산
+	<input type="checkbox" name ="hobby" value ="노래">노래
+	<input type="checkbox" name ="hobbyAll" value ="전체선택" onclick="checkAll()"> 전체선택
+	<input type="button" value="취미 체크완료" onclick="printCheckbox() ">
+	<br>
+	
+	성별 :
+	<input type="radio" name = "gender" value ="남">남
+	<input type="radio" name = "gender" value ="여">여
+	<input type="button" value="성별 체크완료" onclick="printRadio() ">
+	<br>
+	
+	<input type="submit" value="회원가입")>
+	
+	
+	</form>
+	<div id = "infoArea"></div>
+</body>
+</html>

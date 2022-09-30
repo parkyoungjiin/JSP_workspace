@@ -73,7 +73,9 @@
 	
 // 	document.write("현재 fruits 배열 크기 : " + fruitsArr.length + "<br>");
 // 	document.write("현재 fruits 배열 데이터 : " + fruitsArr + "<br>");
-	// 다른점 3. 배열에 저장되는 요소들의 데이터타입에 
+
+	// 다른점 3. 배열에 저장되는 요소들의 데이터타입에 대한 제약이 없음
+	// => 정수, 문자열, 논리타입 뿐만 아니라 객체, 배열, 함수까지도 저장 가능
 	var arrAllType = ["홍길동", 3.14, true, 10, function() {alert("배열 내의 함수")}];
 	
 	for(var element of arrAllType){
@@ -94,7 +96,7 @@
 	fruitsArr.splice(2, 1);
 	document.write("요소 삭제(splice() 후  fruits 배열 데이터 : " + fruitsArr + "<br>");
 	
-	//3. slice(시작인덱스, 끝인덱스 ) : 시작인덱스 ~ 끝인덱스 -1까지 부분 배열 ㅊ출
+	//3. slice(시작인덱스, 끝인덱스 ) : 시작인덱스 ~ 끝인덱스 -1까지 부분 배열 추출
 	// => 추출된 배열은 배열 형태로 변수에 저장 또는 사용 가능
 	document.write("<h3>arr</h3>");
 	

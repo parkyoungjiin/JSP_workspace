@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+	function clickButton(){
+		alert("버튼2 클릭됨!")
+	}
+	
+	function mouseover(){
+		document.getElementById("mouseresultArea").innerHTML = "마우스오버!";
+		
+// 		onmouseover = alert("마우스오버!")
+	}
+	
+	function mouseout(){
+		document.getElementById("mouseresultArea").innerHTML = "마우스아웃!" // mouseresultArea라는 구역에 마우스 아웃을 넣는다. 
+// 		onmouseout = alert("마우스 아웃")
+	}
+	
+	function changeImage(){
+		// "img" 라는 id 선택자를 지정하여 해당 객체 가져오기
+		let image = document.getElementById("img")
+		
+		image.src = "2.jpg"; // 기존의 1.jpg에서 2.jpg로 바꿈.
+		
+		
+	}
+	
+	function changeImage2(){
+		let image = document.getElementById("img")
+		image.src = "1.jpg";
+	}
+	
+	function changeColor(color){
+		let textElem = document.getElementById("name");
+		textElem.style.background = color;
+		
+	}
+	
+	function changeColor2(elem, color){
+// 		let textElem = document.getElementById("name"); -> 이 과정을 elem(this) 를 통해 전달
+		elem.style.background = color;
+		
+	}
+	function changeColorTr(elem, color){
+// 		let textElem = document.getElementById("name"); -> 이 과정을 elem(this) 를 통해 전달
+		elem.style.background = color;
+		
+	}
+	function changeColorTr2(elem, color){
+// 		let textElem = document.getElementById("name"); -> 이 과정을 elem(this) 를 통해 전달
+		elem.style.background = color;
+		
+	}
+	
+	function checkId(id){
+		//span 태그 영역(checkIdResult)객체를 가져옴
+		let spanElem = document.getElementById("checkIdResult");
+		
+		if(id == "admin"){
+			spanElem.innerHTML = "사용 불가능한 아이디";
+			spanElem.style.color = "RED";
+		}else{
+			spanElem.innerHTML = "사용 가능한 아이디";
+			spanElem.style.color = "GREEN";
+		}
+	}
+	function checkId2(id){
+		//span 태그 영역(checkIdResult)객체를 가져옴
+		let spanElem = document.getElementById("checkIdResult2");
+		
+		if(id == "admin"){
+			alert("사용 불가능한 아이디");
+			spanElem.innerHTML = "사용 불가능한 아이디";
+			spanElem.style.color = "RED";
+		}else{
+			spanElem.innerHTML = "사용 가능한 아이디";
+			spanElem.style.color = "GREEN";
+		}
+	}
+</script>
+</head>
+<body>
+	<h1>test10.html</h1>
+	
+	<input type="button" value ="클릭" onclick ="alert('버튼 클릭됨!')"> <!--  alert() 를 통한 메시지 출력 -->
+<!-- 	<input type ="button" value = "클릭2" onclick ="clickButton()"> clickButton() 함수 호출을 통한 메시지 출력 -->
+	<button onclick = "clickButton()">클릭2</button>
+	
+<!-- 	<button onmouseover ="alert('마우스오버!')" onmouseout = "alert('마우스아웃')" >마우스를 가져다 대세요</button>  onmouseover(갖다 댔을 때), onmouseout 함수 -->
+	<button onmouseover ="mouseover()" onmouseout = "mouseout()" >마우스를 가져다 대세요</button>
+	<div id="mouseresultArea"></div> <!-- div는 영역을 표시, id가 mouseresultArea라는 구역이 있다 !-->
+	
+	
+	<hr> <!--  mouseover, mouseout 끝 -->
+	
+	<img src ="1.jpg" id ="img" width = "200" height ="200" 
+	onmousemover = "document.getElementById('img').src = '2.jpg'"
+	onmouseout = "document.getElementById('img').src = '1.jpg'"
+	><br>
+	
+	<button onclick = "changeImage()">이미지 교체</button>
+	
+	<button onclick = "changeImage2()">이미지 복원</button>
+	
+	<hr> <!--  사진 교체 끝 -->
+	
+	이름 : <input type = "text" id ="name" onfocus ="changeColor('SKYBLUE')" onblur="changeColor('WHITE')"><br>
+	나이 : <input type = "text" id = "age" onfocus ="changeColor2(this, '#FFCCCC')" onblur="changeColor2(this, 'WHITE')">
+	<!-- 함수 호출 시, 파라미터로 this 전달할 경우 해당 태그 객체를 직접 전달 
+	=> document.getElementById 를 안적고 this를 적어도 된다. -->
+	
+	<hr> <!--  onfoucs, onblur를 사용한 컬러 변경 -->
+	
+	<table border = "1"> 	
+ 	<tr><th colspan ="4">테이블 연습</th></tr>
+			<tr onmouseover="changeColorTr(this, '#FFCCCC')" onmouseout="changeColorTr(this, 'WHITE')">
+				<td>1-1</td>
+				<td>1-2</td>
+				<td>1-3</td>
+				<td>1-4</td>
+			</tr>
+			<tr onmouseover="changeColorTr(this, '#FFCCCC')" onmouseout="changeColorTr(this, 'WHITE')">
+				<td>2-1</td>
+				<td>2-2</td>
+				<td>2-3</td>
+				<td>2-4</td>
+			</tr >
+			
+			<tr onmouseover ="changeColorTr(this, '#FFCCCC')" onmouseout= "changeColorTr(this, 'WHITE')">
+				<td> 3-1</td>
+				<td> 3-2</td>
+				<td> 3-3</td>
+				<td> 3-4</td>
+			</tr>
+			
+	</table>
+	
+	<hr> <!--  테이블을 사용한 onmouseover, onmouseout 끝 -->
+	
+	
+	아이디 <input type ="text" placeholder ="아이디 입력" onkeyup = "checkId(this.value)">
+	
+	<span id="checkIdResult"></span>
+	<br>
+	아이디 <input type ="text" placeholder ="아이디 입력" onchange = "checkId2(this.value)"> 
+	<!-- ****** onchange와 onkeyup 차이 알아두기 ******
+	onchance는 키를 누를 때 마다 변경되는 것이 아니라, 해당 요소의 내용이 변경되고 포커스를 빠져나갈 떄 동작한다.
+	onkeyup은 변경될 때마다, 누를 때 마다 변경
+	-->
+	<span id="checkIdResult2"></span>
+	
+	<!--  div는 한 줄을 모두 차지, span은 다른 요소와 어울림.(옆으로 붙이고 싶을 때) -->
+	<!--  글자를 입력할 때는 키를 누를 때, 키를 뗄 때 -->
+</body>
+</html>

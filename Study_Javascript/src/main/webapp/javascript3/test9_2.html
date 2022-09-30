@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+// setInterval() 함수를 통한 타이머 객체를 저장할 변수 선언(전역변수 선언)
+// => 전역변수란, 모든 함수에서 접근 가능한 변수. (자바스크립트 전체에서 접근 가능한 변수)
+
+
+var timer;
+
+
+function funcInnerText(){
+	//id 선택자가 divAreaText 인 객체를 가져오는 것
+	let divAreaText = document.getElementById("divAreaText");
+	
+	//innerText 속성을 활용하여 해당 div 태그 내의 텍스트 내용 변경
+	divAreaText.innerText = "<h3>innerText로 변경한 텍스트</h3>";
+	
+}
+function funcInnerHtml(){
+	let divAreaHtml = document.getElementById("divAreaHtml");
+	
+	divAreaHtml.innerHTML = "<h3>innerHtml로 변경한 텍스트</h3>";
+	//호환성은 innerHTML이 좋음. (HTML은 대문자로 꼭 작성하기 !)
+	
+}
+
+function showDate(){
+	let date = new Date();
+	// date라는 변수에 new Date()로 객체를 생성하면 현재 시간을 가진 객체를 리턴한다.
+	
+	
+	document.getElementById("divDate").innerHTML = date;
+	//divDate라는 id선택자를 찾아서  date로 바꿔준다.
+}
+
+
+function showTimer() {
+//어떤 작업(함수 호출 )을 주기적으로 반복하기 위해서는 setInterval() 함수를 호출하여 반복할 작업(함수)과 반복 주기를 파라미터로 전달
+// -> 이 때 반복하는 주기는 밀리초(ms) 단위의 값 전달(1초 = 1000밀리초)
+// 	<기본 문법>
+// => setInterval(함수, 반복주기);
+
+// < 반복, 중지 기본 문법>
+// => clearInterval(중지할 타이머 객체)
+	refreshTimer(); // 한 번 호출하고 , 반복하는 setInterval 함수를 사용 
+	
+// 	var timer = setInterval(refreshTimer, 1000); //var를 사용할 경우 함수 내에서만 사용 가능하지, 다른 함수에서 사용 불가능
+
+
+// setInterval() 함수를 통해 반복 실행하는 인터벌객체를 timer 변수에 저장하면 다른 함수에서 해당 타이머에 접근이 가능하며 ,중지도 가능하다.
+
+	timer = setInterval(refreshTimer, 1000);
+	// 왜 var를 여기에 적으면 타이머가 중지되지 않고, var 를 빼면 타이머가 중지되는가
+	
+
+}
+
+
+function stopTimer(){
+	clearInterval(timer); // timer라는 변수를 중지.
+	document.getElementById("divTimer").innerHTML = ""; // div 영역 타이머 제거
+	
+}
+
+function refreshTimer(){
+	let timer = document.getElementById("divTimer"); //타이머라는 변수에 divTimer 요소를 대입
+	let now = new Date();
+	divTimer.innerHTML = now;
+	
+}
+</script>
+</head>
+<body>
+	<h1>test9_2.html</h1>
+	<button onclick="funcInnerText()">innerText</button>
+	<button onclick="funcInnerHtml()">innerHtml</button>
+		
+	<div id = "divAreaText"></div>
+	<div id = "divAreaHtml"></div>
+	
+	<hr>
+	
+	<button onclick="showDate()">날짜 및 시각 표시</button>
+	<div id = "divDate">날짜 및 시각 표시할 위치</div>
+	
+	<button onclick="showTimer()">타이머 시작!</button> 
+	<button onclick="stopTimer()">타이머 중지!</button> 
+	<div id = "divTimer">날짜 및 시각 표시할 위치</div>
+	
+</body>
+</html>
