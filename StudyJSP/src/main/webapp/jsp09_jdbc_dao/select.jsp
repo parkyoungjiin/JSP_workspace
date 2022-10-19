@@ -1,3 +1,6 @@
+<%@page import="jsp09_jdbc_dao.StudentDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="jsp09_jdbc_dao.StudentDAO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
@@ -12,46 +15,36 @@
 </head>
 <body>
 	<h1>학생 목록</h1>
-	<%
-		request.setCharacterEncoding("UTF-8");
-		
-		String driver = "com.mysql.cj.jdbc.Driver";
-		String url = "jdbc:mysql://localhost:3306/study_jsp";
-		String user = "root";
-		String password = "1234";
-		
-		Class.forName(driver);
-		
-		Connection con = DriverManager.getConnection(url, user, password);
-		
-		String sql = "SELECT * FROM student";
-		
-		PreparedStatement pstmt = con.prepareStatement(sql);
-		
-		
-		ResultSet rs = pstmt.executeQuery();// select 구문은 ResultSet이라는 객체 사용
-		
-		
-	%>
 		<table border ="1">
 			<tr>
 				<th>번호</th>
 				<th>이름</th>
 			</tr>
-		
-		<%
-		while(rs.next()){
-			int idx = rs.getInt(1);
-			String name = rs.getString(2);
-		
-		%>
-		<tr>
-			<td><%=idx %></td><td><%=name %></td>
-		</tr>
+	<%
+	// 학생 목록 조회를 위해 StudentDAO 인스턴스 생성 후 select 메서드 호출
+	// select는 파라미터가 없고, ***리턴타입*** : 
+		StudentDAO dao = new StudentDAO();
+		ArrayList studentList = dao.select();
+		for(int i = 0 ; i< studentList.size(); i++){
+// 			Object o = studentList.get(i);
+			
+			// 다운 캐스팅
+			
+// 			StudentDTO student = (StudentDTO)o;
+			
+			StudentDTO student = (StudentDTO)studentList.get(i);
+			%>
+			<tr>
+			<!-- studentDTO 객체의 getXX를 호출하여 메서드 호출 -->
+				
+				<td><%=student.getIdx() %></td><td><%=student.getName() %></td>
+			</tr>
+			
 		<% 
 		}
 		%>
-		</table>
+			</table>
+			
 		
 </body>
 </html>
