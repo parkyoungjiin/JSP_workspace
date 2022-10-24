@@ -24,9 +24,9 @@
 <%-- 	<jsp:forward page="forwardPro2.jsp"/> --%>
 	<!-- forward 액션태그로 포워딩 시 데이터를 추가해서 포워딩 작업 가능 -->
 	
-	<jsp:forward page="forwardPro2.jsp"> <!-- 시작태그 -->
-		<jsp:param name="paramValue1" value ="forward 액션태그의 param 태그 데이터"/>
-		<jsp:param name="paramValue2" value ="<%=age %>"/>
-	</jsp:forward> <!--  끝태그 -->
+	<jsp:forward page="forwardPro2.jsp">
+		<jsp:param name="paramValue1" value="forward 액션태그의 param 태그 데이터"/>
+		<jsp:param name="paramValue2" value="<%=age %>"/>
+	</jsp:forward>
 </body>
 </html>

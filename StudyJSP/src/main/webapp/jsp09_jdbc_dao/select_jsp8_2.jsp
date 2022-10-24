@@ -1,6 +1,6 @@
+<%@page import="jsp09_jdbc_dao.Jsp8_2DAO"%>
 <%@page import="jsp09_jdbc_dao.Jsp8_2DTO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="jsp09_jdbc_dao.Jsp8_2DAO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
@@ -17,7 +17,7 @@
 		//confirm dialog 사용하여 확인 요청 
 		let confirmDele = confirm(id + " 회원을 삭제하시겠습니까?");
 		if(confirmDele){
-			location.href = "delete2.jsp?id=" + id; // id도 같이 넘김. (웹페이지에)
+			location.href = "delete_jsp_8_2.jsp?id=" + id; // id도 같이 넘김. (웹페이지에)
 		}else{
 			alert("취소되었습니다")
 		}
@@ -43,8 +43,9 @@
 			
 			<%
 			//회원목록 조회를 위해 Jsp8_2DAO 객체 생성 후 select() 메서드 호출
-			
+			String id = request.getParameter("id");
 			Jsp8_2DAO dao = new Jsp8_2DAO();
+			
 			ArrayList jspList = dao.select();
 			
 			//테이블 내 회원 목록 출력
@@ -56,18 +57,19 @@
 			<tr>
 				<td><%=dto.getName() %></td>
 				<td><%=dto.getId() %></td>
-				<td><%=dto.getPasswd() %></td>
-				<td><%=dto.getJumin() %></td>
+<%-- 				<td><%=dto.getPasswd() %></td> --%>
+<%-- 				<td><%=dto.getJumin() %></td> --%>
 				<td><%=dto.getEmail() %></td>
-				<td><%=dto.getJob() %></td>
+<%-- 				<td><%=dto.getJob() %></td> --%>
 				<td><%=dto.getGender() %></td>
-				<td><%=dto.getHobby() %></td>
-				<td><%=dto.getContent() %></td>
-				<td><input type="button" value ="상세정보" onclick ="location.href='select2_detail.jsp?id=<%=dto.getId() %>'"></td>
+<%-- 				<td><%=dto.getHobby() %></td> --%>
+<%-- 				<td><%=dto.getContent() %></td> --%>
+				<td><%=dto.getHire_date() %></td>
+				<td><input type="button" value ="상세정보" onclick ="location.href='select_jsp8_2_detail.jsp?id=<%=dto.getId() %>'"></td>
 				<td><input type="button" value ="삭제" onclick ="confirmDelete('<%=dto.getId() %>')"></td>
 			</tr>
 			<%}%>
-			
+		<tr><input type="button" value ="뒤로가기" onclick="history.back()"></tr>
 		</table>
 			
 		

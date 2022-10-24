@@ -51,11 +51,10 @@
 	//DAO로 생성한 dao 객체를 통해서 insert 문을 통한 결과를 insertCount에 넣는다.
 	int insertCount = dao.insert(dto);
 
-
 %>
 	<%
 	if(insertCount > 0) {
-		response.sendRedirect("select2.jsp");
+		response.sendRedirect("select_jsp8_2.jsp");
 	}else{
 	%>
 	<script type="text/javascript">

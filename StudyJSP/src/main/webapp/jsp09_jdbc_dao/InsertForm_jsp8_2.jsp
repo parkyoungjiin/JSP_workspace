@@ -82,7 +82,7 @@
 </head>
 <body>
 <h1>회원가입</h1>
-<form action = "insertPro2.jsp" name="fr" method ="post">
+<form action = "insertPro_jsp8_2.jsp" name="fr" method ="post">
 	<table border="1">
 		<tr>
 			<td>이름</td>
