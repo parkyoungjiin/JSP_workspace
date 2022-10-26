@@ -26,6 +26,15 @@
 </script>
 </head>
 <body>
+	<%
+	String id = (String)session.getAttribute("sId");
+	if(id == null || id.equals("")){%>	
+
+	<script type="text/javascript">
+		alert("잘못된 접근입니다.");
+		location.href ="index.jsp";
+	</script>
+	<%} %>
 	<h1>회원가입 목록</h1>
 		<table border ="1">
 			<tr>
@@ -43,7 +52,6 @@
 			
 			<%
 			//회원목록 조회를 위해 Jsp8_2DAO 객체 생성 후 select() 메서드 호출
-			String id = request.getParameter("id");
 			Jsp8_2DAO dao = new Jsp8_2DAO();
 			
 			ArrayList jspList = dao.select();
@@ -64,7 +72,7 @@
 				<td><%=dto.getGender() %></td>
 <%-- 				<td><%=dto.getHobby() %></td> --%>
 <%-- 				<td><%=dto.getContent() %></td> --%>
-				<td><%=dto.getHire_date() %></td>
+				<td><%=dto.getHire_date()%></td>
 				<td><input type="button" value ="상세정보" onclick ="location.href='select_jsp8_2_detail.jsp?id=<%=dto.getId() %>'"></td>
 				<td><input type="button" value ="삭제" onclick ="confirmDelete('<%=dto.getId() %>')"></td>
 			</tr>

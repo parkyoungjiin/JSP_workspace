@@ -30,13 +30,23 @@ function confirmDelete(id){
    
 <%
 	 String id = request.getParameter("id");
+
 	//리턴타입 dto, 파라미터 id 
 	// -> dao에 있는 메서드를 호출해서 dto에 저장한다. 
+	String sId = (String)session.getAttribute("sId");	
+	
+	if(id ==null || sId ==null || !id.equals(sId) && !sId.equals("admin")){%>
+		<script>
+			alert("잘못된 접근입니다.");
+			location.href = "index.jsp";
+		</script>
+		<%
+	}
 	
 	Jsp8_2DAO dao = new Jsp8_2DAO();
 	Jsp8_2DTO dto = dao.selectDetail(id);	
 	//만약 조회결과가 있을 경우(Jsp8_2DTO 객체가 Null 이 아닌경우 ) 테이블에 겨
-	if(dto != null){
+	if(dto != null){	
 
  %>
    
@@ -93,7 +103,7 @@ function confirmDelete(id){
    
       <tr>
          <td colspan="2">
-            <input type="reset" value="삭제" onclick = "confirmDelete('<%=dto.getId() %>')"> <!-- 이 id는 sql에서 가져온 String id이다. --> %>
+            <input type="reset" value="삭제" onclick = "confirmDelete('<%=dto.getId() %>')"> <!-- 이 id는 sql에서 가져온 String id이다. -->
             <input type="submit" value="이전" onclick="history.back()">
          </td>
       </tr>

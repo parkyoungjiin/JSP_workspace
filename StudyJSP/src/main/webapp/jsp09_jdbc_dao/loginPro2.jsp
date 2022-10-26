@@ -18,6 +18,8 @@
 	
 	boolean isLoginSuccess = dao.login(id, passwd);
 	if(isLoginSuccess == true){
+		session.setAttribute("sId", id);
+
 		response.sendRedirect("index.jsp");
 	}else{
 	%>

@@ -130,6 +130,7 @@ public class Jsp8_2DAO {
 			   dto = new Jsp8_2DTO();
 			  dto.setName(rs.getString("name")); 
 			  dto.setId(rs.getString("id"));
+			  dto.setPasswd(rs.getString("passwd"));
 			  dto.setJumin(rs.getString("jumin"));
 			  dto.setEmail(rs.getString("email"));
 			  dto.setJob(rs.getString("job"));
@@ -189,18 +190,18 @@ public class Jsp8_2DAO {
 
 		con = JdbcUtil.getConnection();
 		
-		//3단계
+		//3단계 : 아이디, 패스워드 일치하는 레코드 조회
 		String sql = "SELECT * FROM jsp8_2 where id = ? AND passwd = ?";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, id);
-			pstmt.setString(2, password);
+			pstmt.setString(1, id); // dto.getId() 
+			pstmt.setString(2, password); // dto.getPasswd()
+			
 		    rs = pstmt.executeQuery();
+		    
 		    if(rs.next()) {
 		    	isLoginSuccess = true;
-		    }else {
-		    	isLoginSuccess = false;
 		    }
 			
 		} catch (SQLException e) {
