@@ -22,13 +22,29 @@ dto.setPass(request.getParameter("pass"));
 dto.setName(request.getParameter("name"));
 dto.setEmail(request.getParameter("email"));
 dto.setPost_code(request.getParameter("post_code"));
-dto.setAddress1(request.getParameter("Address1"));
-dto.setAddress2(request.getParameter("Address2"));
+dto.setAddress1(request.getParameter("address1"));
+dto.setAddress2(request.getParameter("address2"));
 dto.setPhone(request.getParameter("phone"));
 dto.setMobile(request.getParameter("mobile"));
 
+out.println(dto.toString());
+// MemberDAO 객체의 insertMember()메서드를 호출하여 회원가입 작업 수행
+//파라미터 : MemberDTO 객체 :member 리턴타입 :int (insertcount)
 
-//MemberDAO 객체의 insertMember() 메서드르 호출하여 회원가입 작업 수행
-// -> 파라미터 : MemberDTO 객체(member) 리턴 : int(insertCount)
-out.print(dto.toString());
+//회원가입 결과 판별
+// 실패시 자바스크립트를 사용하여 회원가입실패 출력후 이전페이지 돌아가기
+//아니면 메인페이지로 이동 
 %>
+<%
+MemberDAO dao = new MemberDAO();
+
+if(dao.insertMember(dto) > 0){ %>
+	<script>
+	alert("회원가입에 성공했습니다.");
+ 	</script> 
+<% }else{%>
+	<script>
+	alert("회원가입에 실패했습니다.");
+	location.href("main.jsp");
+	</script>
+<%} %>

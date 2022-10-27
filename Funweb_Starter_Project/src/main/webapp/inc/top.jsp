@@ -2,7 +2,14 @@
     pageEncoding="UTF-8"%>
 <header>
   <!-- login join -->
+  <%
+  String id = (String)session.getAttribute("sId");
+  if(id == null || id ==""){%>
   <div id="login"><a href="../member/login.jsp">login</a> | <a href="../member/join.jsp">join</a></div>
+  <% }else{ %>
+	  <a href =""><%=id%>님</a> 
+	  <a href = "../member/logout.jsp">로그아웃</a>
+  <%} %>
   <div class="clear"></div>
   <!-- 로고들어가는 곳 -->
   <div id="logo"><img src="../images/logo.gif"></div>

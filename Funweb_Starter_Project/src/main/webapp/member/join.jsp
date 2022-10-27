@@ -35,10 +35,10 @@
 		  			<input type="button" value="dup. check" class="dup" id="btn" ><br>
 		  			
 		  			<label>Password</label>
-		  			<input type="password" name="pass1" id="pass" required="required"><br> 			
+		  			<input type="password" name="pass" id="pass" required="required"><br> 			
 		  			
 		  			<label>Retype Password</label>
-		  			<input type="password" name="pass2" required="required"><br>
+		  			<input type="password" name="pass2" id ="pass2" required="required"><br>
 		  			
 		  			<label>Name</label>
 		  			<input type="text" name="name" id="name" required="required"><br>

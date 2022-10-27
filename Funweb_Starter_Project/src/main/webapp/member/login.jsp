@@ -17,8 +17,8 @@
 		  
 		<!-- 본문들어가는 곳 -->
 		  <!-- 본문 메인 이미지 -->
-		  <div id="sub_img_member"></div>
 		  <!-- 왼쪽 메뉴 -->
+		  <div id="sub_img_member"></div>
 		  <nav id="sub_menu">
 		  	<ul>
 		  		<li><a href="#">Join us</a></li>
