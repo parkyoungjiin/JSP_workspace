@@ -32,10 +32,10 @@
 		  		<fieldset>
 		  			<legend>Login Info</legend>
 		  			<label>User Id</label>
-		  			<input type="text" name="id"><br>
+		  			<input type="text" name="id" required="required"><br>
 		  			
 		  			<label>Password</label>
-		  			<input type="password" name="pass"><br>
+		  			<input type="password" name="pass" required="required"><br>
 		  		</fieldset>
 		
 		  		<div class="clear"></div>

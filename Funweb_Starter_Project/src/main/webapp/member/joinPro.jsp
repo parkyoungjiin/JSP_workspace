@@ -27,7 +27,6 @@ dto.setAddress2(request.getParameter("address2"));
 dto.setPhone(request.getParameter("phone"));
 dto.setMobile(request.getParameter("mobile"));
 
-out.println(dto.toString());
 // MemberDAO 객체의 insertMember()메서드를 호출하여 회원가입 작업 수행
 //파라미터 : MemberDTO 객체 :member 리턴타입 :int (insertcount)
 
@@ -40,11 +39,12 @@ MemberDAO dao = new MemberDAO();
 
 if(dao.insertMember(dto) > 0){ %>
 	<script>
-	alert("회원가입에 성공했습니다.");
+	alert("회원가입에 축하합니다!\n3000 포인트가 적립되었습니다.");
+	location.href = "../main/main.jsp";
  	</script> 
 <% }else{%>
 	<script>
 	alert("회원가입에 실패했습니다.");
-	location.href("main.jsp");
+	history.back();
 	</script>
 <%} %>

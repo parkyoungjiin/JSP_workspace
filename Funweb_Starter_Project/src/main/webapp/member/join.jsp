@@ -46,7 +46,8 @@
 		  			<label>E-Mail</label>
 		  			<input type="email" name="email" id="email" required="required"><br>
 		  			
-		  			
+		  			<label>Mobile Phone Number</label>
+		  			<input type="text" name="mobile" ><br>
 		  		</fieldset>
 		  		
 		  		<fieldset>
@@ -59,8 +60,7 @@
 		  			<input type="text" name="address2" id = "address2" placeholder = "상세주소"><br>
 		  			<label>Phone Number</label>
 		  			<input type="text" name="phone" ><br>
-		  			<label>Mobile Phone Number</label>
-		  			<input type="text" name="mobile" ><br>
+		  			
 		  		</fieldset>
 		  		<div class="clear"></div>
 		  		<div id="buttons">
