@@ -9,12 +9,27 @@
 <title>member/member_info.jsp</title>
 <link href="../css/default.css" rel="stylesheet" type="text/css">
 <link href="../css/subpage.css" rel="stylesheet" type="text/css">
+<script>
+	function confirmLeave(id){
+		let result = confirm("탈퇴 하시겠습니까?");
+		
+		if(result){
+			location.href = "../member/member_delete.jsp?id=" + id;
+		}
+	}
+
+</script>
 </head>
 <body>
 <%
-// 세션 아이디 존재하지 않을 경우 -> 잘못된 접근
+// 세션 아이디 존재하지 않을 경우, 파라미터 아이디 존재하지 않을경우 
+// 세션 아이디, 파라미터 아이디가 다를 경우
+// 관리자 아이디가 아니면
+// => 잘못된 접근입니다 출력 !
 String id = (String)session.getAttribute("sId");
-if(id == null | id == ""){%>
+String idx = request.getParameter("id");
+
+if(id == null | id.equals("") || idx == null || !id.equals(idx) && !id.equals("admin")){%>
 	<script>
 	alert("잘못된 접근입니다.");
 	location.href = "../main/main.jsp";
@@ -88,6 +103,7 @@ MemberDTO member = dao.selectMember(id);
 		  		<div id="buttons">
 		  			<input type="submit" value="Update" class="submit">
 		  			<input type="reset" value="Cancel" class="cancel">
+		  			<input type="button" value="Leave" class="submit" onclick="confirmLeave('<%=member.getId()%>')">
 		  		</div>
 		  	</form>
 		  </article>

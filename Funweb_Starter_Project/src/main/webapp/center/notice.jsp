@@ -46,7 +46,7 @@
 				</tr>
 			</table>
 			<div id="table_search">
-				<input type="button" value="글쓰기" class="btn" onclick="#'">
+				<input type="button" value="글쓰기" class="btn" onclick="location.href='notice_write.jsp'">
 			</div>
 			<div id="table_search">
 				<form action="#" method="post">

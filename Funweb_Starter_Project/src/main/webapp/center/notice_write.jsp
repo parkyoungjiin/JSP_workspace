@@ -29,7 +29,7 @@
 		<!-- 본문 내용 -->
 		<article>
 			<h1>Notice Write</h1>
-			<form action="#" method="post">
+			<form action="notice_writePro.jsp" method="post">
 				<table id="notice">
 
 					<tr>
@@ -43,10 +43,6 @@
 					<tr>
 						<td>제목</td>
 						<td><input type="text" name="subject"></td>
-					</tr>
-					<tr>
-						<td>파일</td>
-						<td><input type="file" name="file"></td>
 					</tr>
 					<tr>
 						<td>내용</td>

@@ -25,7 +25,7 @@
 	<hr>
 	<!-- 세션 강제 초기화 -->
 	<%session.invalidate(); %>
-	<h3>새 세션 여부 : <%=session.isNew() %></h3>
+<%-- 	<h3>새 세션 여부 : <%=session.isNew() %></h3> --%>
 	
 	<!--  -->
 	

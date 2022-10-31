@@ -17,6 +17,7 @@
 	
 	<h1>세션값 생성 완료!</h1>
 	<h3><a href = "sessionTest2_get.jsp">세션값 확인</a></h3>
+	
 	<hr>
 	
 	<h3>세션값 1 : <%=session.getAttribute("sessionValue1") %></h3>

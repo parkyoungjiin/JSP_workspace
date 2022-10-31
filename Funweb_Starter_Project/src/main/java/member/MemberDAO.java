@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import DB.JdbcUtil;
 
@@ -80,7 +81,7 @@ public class MemberDAO {
 			}
 			
 		} catch (SQLException e) {
-			System.out.println("SQL 구문 오류 발생!");
+			System.out.println("SQL 구문 오류 발생! - loginMember()");
 			e.printStackTrace();
 		} finally {
 			JdbcUtil.close(rs);
@@ -91,20 +92,24 @@ public class MemberDAO {
 		return member;
 	}
 	
-	public ArrayList select_admin() {
+	public List<MemberDTO> select_admin() {
+		List<MemberDTO> memberList = null;
 		MemberDTO member = null;
-	
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ArrayList memberList = null;
 		
 		con = JdbcUtil.getConnection();
 		try {
+			
 			String sql = "SELECT * FROM member";
 			pstmt = con.prepareStatement(sql);
+			
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			memberList = new ArrayList<MemberDTO>();
+			while(rs.next()) {
+				member = new MemberDTO();
+				
 				member.setId(rs.getString("id"));
 				member.setPass(rs.getString("pass"));
 				member.setName(rs.getString("name"));
@@ -114,9 +119,10 @@ public class MemberDAO {
 				member.setAddress1(rs.getString("address1"));
 				member.setAddress2(rs.getString("address2"));
 				member.setPhone(rs.getString("phone"));
+				member.setDate(rs.getDate("date"));
+				memberList.add(member);
 			}
 			
-			memberList.add(member);
 			
 		} catch (SQLException e) {
 			System.out.println("SQL 구문 오류");
@@ -209,5 +215,30 @@ public class MemberDAO {
 		
 		
 		return upDateCount;
+	}//update 끝
+	
+	public int deleteMember(String id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int deleteCount = 0;
+		
+		try {
+			con = JdbcUtil .getConnection();
+			String sql = "DELETE FROM member WHERE ID = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			deleteCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL구문 오류");
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt);
+			JdbcUtil.close(con);
+			
+		}
+		
+		
+		return deleteCount;
 	}
 }

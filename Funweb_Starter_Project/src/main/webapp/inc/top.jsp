@@ -20,7 +20,7 @@ function confirm_logout(){
   
   <% }else{ %>
   <div id="login">
-  <a href ="../member/member_info.jsp"><%=id%>님</a> <a href = "javascript:confirm_logout()">logout</a>
+  <a href ="../member/member_info.jsp?id=<%=id%>"><%=id%>님</a> <a href = "javascript:confirm_logout()">logout</a>
   <%if(id.equals("admin")) {%>
   	| <a href ="../admin/admin_main.jsp">관리자페이지</a>
   <%} %>

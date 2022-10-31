@@ -30,16 +30,17 @@
 	%>
 	<header>
 		<%if(id == null || id.equals("")){%>
-		<	h4><a href="loginForm2.jsp">로그인 | <a href="InsertForm_jsp8_2.jsp">회원가입</h4>	
+		<h4><a href="loginForm2.jsp">로그인 | <a href="InsertForm_jsp8_2.jsp">회원가입</h4>	
 		<%}else{ %>
 		<h4>
 			<a href="select_jsp8_2_detail.jsp?id=<%=id%>"><%=id %>님</a>| 
 			<a href="logout.jsp">로그아웃</a> 
-			<%if(id.equals("admin")){ %>
+			<%if(id.equals("admin")) { %>
+					| <a href="select2.jsp">관리자페이지</a>
+				<%} %>
 		 <%} %>
 	 	</h4>	
 		
-		<%} %>
 	
 	
 	</header>
