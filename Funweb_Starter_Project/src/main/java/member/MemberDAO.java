@@ -44,6 +44,40 @@ public class MemberDAO {
 		
 	}//insertMember 끝
 	
+	public boolean isRightUser(String id, String pass) {
+		boolean isRightUser = false;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		con = JdbcUtil.getConnection();
+		
+		try {
+			String sql = "SELECT id, pass FROM member WHERE id=?, pass=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(1, pass);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				isRightUser = true;
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 구문 오류 발생!");
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+			JdbcUtil.close(con);
+		}
+		
+		//select 구문을 통해서 파라미터인 id, pass 에 해당하는 
+		
+		
+		return isRightUser;
+	}
+	
 	public MemberDTO selectMember(String id) {
 		MemberDTO member = null;
 		
@@ -136,40 +170,7 @@ public class MemberDAO {
 	}
 	//로그인 판별, 게시물 수정 권한 여부 판별 -> dao에서 true, false를 판별한 값을 각 pro 파일에서 각각의 변수를 선언하여 메서드를 재사용할 수 있
 	
-	public boolean isRightUser(MemberDTO member) {
-		boolean isRightUser = false;
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		con = JdbcUtil.getConnection();
-		
-		String sql = "SELECT * FROM member WHERE id= ? AND pass = ?";
-		
-		//1,2 단계 수행 (연결)
-		try {
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, member.getId());
-			pstmt.setString(2, member.getPass());
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				isRightUser = true;
-			}
-		} catch (SQLException e) {
-			System.out.println("SQL 구문 오류");
-			e.printStackTrace();
-		}finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
-			JdbcUtil.close(con);
-			
-		}
-		
-		
-		return isRightUser; 
-	}//isRightUser 끝
+	
 	
 	public int updateMember(MemberDTO member, boolean isChangePass) {
 		int upDateCount = 0;
@@ -178,7 +179,7 @@ public class MemberDAO {
 		con = JdbcUtil .getConnection();
 		try {
 			if(isChangePass) {
-				String sql = "UPDATE member SET pass = ?, name = ?, email = ?, post_code = ?, address1 = ?, phone =?, mobile=? WHERE id = ?";
+				String sql = "UPDATE member SET pass = ?, name = ?, email = ?, post_code = ?, address1 = ?, address2 = ?, phone =?, mobile=? WHERE id = ?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, member.getPass());
 				pstmt.setString(2, member.getName());
@@ -191,7 +192,7 @@ public class MemberDAO {
 				pstmt.setString(9, member.getId());
 				
 			}else {
-				String sql = "UPDATE member SET name = ?, email = ?, post_code = ?, address1 = ?, phone =?, mobile=? WHERE id = ?";
+				String sql = "UPDATE member SET name = ?, email = ?, post_code = ?, address1 = ?, address2 = ?,phone =?, mobile=? WHERE id = ?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, member.getName());
 				pstmt.setString(2, member.getEmail());

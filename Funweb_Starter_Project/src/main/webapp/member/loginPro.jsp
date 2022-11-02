@@ -1,34 +1,30 @@
-<%@page import="java.sql.ResultSet"%>
 <%@page import="member.MemberDAO"%>
 <%@page import="member.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-request.setCharacterEncoding("UTF-8");
+// login에서 id, password가 같으면 로그인 하도록 함.
+MemberDTO member = new MemberDTO();
 MemberDAO dao = new MemberDAO();
+
+//login.jsp 파일에서 가져온 id, pass 값을 DTO에 저장
 String id = request.getParameter("id");
 String pass = request.getParameter("pass");
 
-//MemberDTO객체에 아이디, 패스워드 저장 가능 !
-MemberDTO member = new MemberDTO();
 member.setId(id);
 member.setPass(pass);
 
-
-
-boolean isLoginSuccess = dao.isRightUser(member);
-
-if(isLoginSuccess ==true) {
-	session.setAttribute("sId", id); //id, 저장할 값
-	response.sendRedirect("../main/main.jsp");	
-%>
-	
-	
-<% }else{%>
-<script>
-	alert("로그인 실패");
-	location.href = "login.jsp";
-</script>
-	
+boolean isRightUser = dao.isRightUser(id, pass);
+if(isRightUser){
+	response.sendRedirect("main.jsp");
+}else{%>
+	<script>
+	alert("로그인에 실패했습니다.");
+	history.back();
+	</script>
 <%} %>
+
+
+
+
 

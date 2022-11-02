@@ -39,21 +39,27 @@ public class JdbcUtil {
 	//2. close() 메서드 정의 (자원반환을 공통으로 수행)
 	public static void close(Connection con) {
 		try {
-			con.close();
+			if(con != null) {
+				con.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}//close 끝
 	public static void close(PreparedStatement pstmt) {
 		try {
-			pstmt.close();
+			if(pstmt != null) {
+				pstmt.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}//close 끝
 	public static void close(ResultSet rs) {
 		try {
+			if(rs != null) {
 			rs.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

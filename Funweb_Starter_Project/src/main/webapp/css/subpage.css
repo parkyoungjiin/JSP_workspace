@@ -138,6 +138,7 @@ article table#notice{
 	border-collapse: collapse; 
 }
 article table#notice th{
+	text-align: center;
 	height: 20px;
 	font-size: 14px;
 	font-weight: bold;
@@ -163,14 +164,14 @@ article th.tno{
 	border-bottom-left-radius: 5px;
 }
 article th.ttitle{
-	width: 400px;
+	width: 350px;
 	letter-spacing: 0.7em;
 }
 article th.twrite{
 	width: 100px;
 }
 article th.tdate{
-	width: 50px;
+	width: 120px;
 }
 article th.tread{
 	width: 50px;

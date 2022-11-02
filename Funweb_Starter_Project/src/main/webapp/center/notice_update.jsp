@@ -18,14 +18,7 @@
 		<!-- 본문 메인 이미지 -->
 		<div id="sub_img_center"></div>
 		<!-- 왼쪽 메뉴 -->
-		<nav id="sub_menu">
-			<ul>
-				<li><a href="#">Notice</a></li>
-				<li><a href="#">Public News</a></li>
-				<li><a href="#">Driver Download</a></li>
-				<li><a href="#">Service Policy</a></li>
-			</ul>
-		</nav>
+		<jsp:include page="../inc/left.jsp" />
 		<!-- 본문 내용 -->
 		<article>
 			<h1>Notice Update</h1>
