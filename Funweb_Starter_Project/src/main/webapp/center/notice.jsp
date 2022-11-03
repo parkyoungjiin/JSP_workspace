@@ -17,7 +17,6 @@ SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd HH:mm");
 BoardDAO dao = new BoardDAO();
 
 
-
 // 2. 게시물 목록 조회
 // List<BoardDTO>boardlist = dao.selectBoardList();
 
@@ -37,6 +36,12 @@ if(request.getParameter("pageNum") != null ){
 System.out.println(pageNum);
 
 // 3-2. 현재 페이지에서 목록으로 표시할 첫 게시물의 행 번호 
+//------------------------------------------------------------------------------------
+// pageNum(페이지번호)  listLimit(게시물 수)    startRow(시작행번호)   endRow(끝행번호)
+// ------------------------------------------------------------------------------------
+//         1                    10              (1 - 1) * 10 =  0행        (~ 9행)
+//         2                    10              (2 - 1) * 10 = 10행       (~ 19행)
+//         3                    10              (3 - 1) * 10 = 20행       (~ 29행)
 // => (현재 페이지 번호 -1) + 페이지 당 게시물 목록 개수
 
 int startRow = (pageNum-1) * listLimit;
@@ -76,6 +81,7 @@ List<BoardDTO> boardlist = dao.selectBoardList(startRow, listLimit);
 					<th class="tdate">Date</th>
 					<th class="tread">Read</th>
 				</tr>
+				
 				<!-- 글 목록 반복 표시할 위치 -->
 				
 				
@@ -103,10 +109,10 @@ List<BoardDTO> boardlist = dao.selectBoardList(startRow, listLimit);
 			<div class="clear"></div>
 			<div id="page_control">
 			<%// 한 페이지에서 표시할 페이지 목록(번호) 갯수 계산
-			int listcount = dao.selectListCount();
+			int listcount = dao.selectListCount(); //전체 게시물 개수 
 			
 			//페이지 목록 개수 계산
-			int pageListLimit = 3;
+			int pageListLimit = 10;
 			
 			//3. 전체 게시물 수를 페이지 당 게시물 목록 수로 나눈 나머지 Ex) 21개일 때 
 // 			int maxPage = listcount / listLimit;
@@ -118,7 +124,10 @@ List<BoardDTO> boardlist = dao.selectBoardList(startRow, listLimit);
 			//삼항 연산자 사용한 것으로 위 코드와 동일함.
 			int maxPage = listcount / listLimit + (listcount % listLimit ==0 ? 0 : 1);
 			// 나머지가 0일 때 0, 나머지가 0이 아닐 때 1을 더한다 !
-			
+			//listcount 가 총 게시물 개수, listLimit는 한 페이지에 나타낼 때 제한 개수
+			// 만약 나눴을 때 0이 아니면 다음 페이지가 필요함.
+			// 예를 들어, 21개일 때 limit가 10이기에 나머지가 1인데, 이 떄 기존에는 1페이지였지만
+			// 삼항연산자 계산을 통해서 + 1 이되어 maxPage가 1증가하여 2페이지가 된다.
 			
 			System.out.println("전체 페이지 수 : " + maxPage);
 			//4. 시작 페이지 번호 계산

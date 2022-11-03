@@ -13,6 +13,7 @@ public class BoardDAO {
 	Connection con = null;
 	PreparedStatement pstmt = null, pstmt2 = null;
 	ResultSet rs = null;
+	
 	public int insertBoard(BoardDTO board) {
 		int insertCount = 0;
 		con = JdbcUtil.getConnection();
@@ -129,7 +130,7 @@ public class BoardDAO {
 		con = JdbcUtil.getConnection();
 		
 		try {
-			String sql = "SELECT * FROM board ORDER BY idx DESC LIMIT ?	?";
+			String sql = "SELECT * FROM board ORDER BY idx DESC LIMIT ?, ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, listLimit);
