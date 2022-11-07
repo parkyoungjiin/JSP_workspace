@@ -1,5 +1,29 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="board.BoardDTO"%>
+<%@page import="board.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+
+int idx = Integer.parseInt(request.getParameter("idx"));
+String pageNum = request.getParameter("pageNum");
+
+BoardDAO dao = new BoardDAO();
+
+//조회수 증가 작업
+dao.updateReadcount(idx);
+
+//클릭했을 때 목록을 보여줌
+BoardDTO board = dao.selectBoard(idx);
+
+// board.setContent(board.getContent().replaceAll(System.getProperty("line.separator"), "<br>"));
+
+//날짜 표시 형식 : 'xxxx-xx-xx xx:xx:xx" (연-월-일- 시:분:초) SimpleaDateFormat
+
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,30 +50,30 @@
 			<table id="notice">
 				<tr>
 					<td>글번호</td>
-					<td></td>
+					<td> <%=board.getIdx() %></td>
 					<td>글쓴이</td>
-					<td></td>
+					<td><%=board.getName() %></td>
 				</tr>
 				<tr>
 					<td>작성일</td>
-					<td></td>
-					<td>조회수</td>
-					<td></td>
+					<td><%=sdf.format(board.getDate()) %></td>
+					<td>조회수 </td>
+					<td><%=board.getReadcount() %></td>
 				</tr>
 				<tr>
 					<td>제목</td>
-					<td colspan="3"></td>
+					<td colspan="3"><%=board.getSubject() %></td>
 				</tr>
 				<tr>
-					<td>내용</td>
-					<td colspan="3"></td>
+					<td height ="300" >내용</td>
+					<td colspan="3"><%=board.getContent() %></td>
 				</tr>
 			</table>
 
 			<div id="table_search">
-				<input type="button" value="글수정" class="btn" onclick="#"> <input
-					type="button" value="글삭제" class="btn" onclick="#"> <input
-					type="button" value="글목록" class="btn" onclick="#">
+				<input type="button" value="글수정" class="btn" onclick="location.href = 'notice_update.jsp?idx=<%=board.getIdx()%>&pageNum=<%=pageNum%>'"> 
+				<input type="button" value="글삭제" class="btn" onclick="location.href = 'notice_delete.jsp?idx=<%=board.getIdx()%>&pageNum=<%=pageNum%>'"> 
+				<input type="button" value="글목록" class="btn" onclick="location.href = 'notice.jsp?pageNum=<%=pageNum %>'">
 			</div>
 
 			<div class="clear"></div>

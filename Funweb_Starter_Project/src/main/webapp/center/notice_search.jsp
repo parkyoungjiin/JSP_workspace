@@ -45,9 +45,16 @@ System.out.println(pageNum);
 // => (현재 페이지 번호 -1) + 페이지 당 게시물 목록 개수
 
 int startRow = (pageNum-1) * listLimit;
-List<BoardDTO> boardlist = dao.selectBoardList(startRow, listLimit);
 
+//파라미터로 전달받은 키워드 저장
 
+String keyword = request.getParameter("keyword");
+//전달받은 키워드가 널이면 널스트링으로 변경
+
+if(keyword == null){
+	keyword = "";
+}
+List<BoardDTO> boardlist = dao.selectBoardList(startRow, listLimit, keyword);
 
 
 %>
@@ -101,7 +108,7 @@ List<BoardDTO> boardlist = dao.selectBoardList(startRow, listLimit);
 			</div>
 			<div id="table_search">
 				<form action="notice_search.jsp" method="get">
-					<input type="text" name="keyword" class="input_box">
+					<input type="text" name="keyword" value = "<%=keyword%>"class="input_box">
 					<input type="submit" value="Search" class="btn">
 				</form>
 			</div>
@@ -109,7 +116,7 @@ List<BoardDTO> boardlist = dao.selectBoardList(startRow, listLimit);
 			<div class="clear"></div>
 			<div id="page_control">
 			<%// 한 페이지에서 표시할 페이지 목록(번호) 갯수 계산
-			int listcount = dao.selectListCount(); //전체 게시물 개수 
+			int listcount = dao.selectListCount(keyword); //전체 게시물 개수 
 			
 			//페이지 목록 개수 계산
 			int pageListLimit = 3;
