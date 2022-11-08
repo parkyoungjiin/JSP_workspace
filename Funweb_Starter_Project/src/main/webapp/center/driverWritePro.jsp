@@ -28,7 +28,7 @@ ServletContext context = request.getServletContext();
 String realPath = context.getRealPath(uploadPath);
 // out.println(realPath);
 
-//D:\workspace_jsp5\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Funweb_Starter_Project\ upload
+// D:\workspace_jsp5\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Funweb_Starter_Project\ upload
 
 //5. MultipartRequest 객체 생성
 // 파일 업로드가 포함된 게시물 작성 시 전달받은 파라미터는 request 객체를 통해 전달되지만 request.getParameter() 메서드는 안된다.
@@ -65,15 +65,19 @@ out.println("원본 파일명 : " + fileboard.getOriginal_file() + "실제 파�
 
 
 FileBoardDAO dao = new FileBoardDAO();
-int insertCount = fileboard.insertFileBoard();
-if(insertCount > 0){
-	response.sendRedirect("notice.jsp");
-}else{
-	%>
+int insertCount = dao.FileBoardInsert(fileboard);
+
+if(insertCount > 0){%>
 	<script>
-	alert("글쓰기 실패!");
+	alert("등록에 성공했습니다.");
+	location.href = "driver.jsp";
+	</script>	
+<%}else{%>
+	<script>
+	alert("등록에 실패했습니다.");
 	history.back();
 	</script>
-<%}%>
+<%} %>
+
 
 %>
