@@ -31,7 +31,7 @@ FileBoardDTO fileboard = new FileBoardDTO();
 		<!-- 본문 내용 -->
 		<article>
 			<h1>File Delete</h1>
-			<form action="driver_deletePro.jsp" method="post">
+			<form action="driver_deletePro.jsp?pageNum=<%=pageNum %>" method="post">
 				<input type="hidden" name="idx" value="<%=request.getParameter("idx")%>">
 				<input type="hidden" name="pageNum" value="<%=request.getParameter("pageNum")%>">
 				<table id="notice">
@@ -43,6 +43,8 @@ FileBoardDTO fileboard = new FileBoardDTO();
 
 				<div id="table_search">
 					<input type="submit" value="글삭제" class="btn">
+					<input type="button" value="취소" class="btn" onclick = "history.back()">
+				
 				</div>
 			</form>
 			<div class="clear"></div>

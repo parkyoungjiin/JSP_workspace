@@ -8,7 +8,11 @@
 	pageEncoding="UTF-8"%>
 <%
 int idx = Integer.parseInt(request.getParameter("idx"));
-String pageNum = request.getParameter("pageNum");
+String pageNum = "1";
+if(request.getParameter("pageNum") != null ){
+	pageNum = request.getParameter("pageNum");
+	
+}
 
 FileBoardDAO dao = new FileBoardDAO();
 

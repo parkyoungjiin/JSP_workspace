@@ -34,10 +34,14 @@ FileBoardDTO fileboard = dao.selectContent(idx);
 		<jsp:include page="../inc/left.jsp" />
 		<!-- 본문 내용 -->
 		<article>
-			<h1>Notice Update</h1>
-			<form action="driver_updatePro.jsp" method="post">
+			<h1>Driver Update</h1>
+			<form action="driver_updatePro.jsp" method="post" enctype="multipart/form-data">
 				<input type ="hidden" name ="idx" value ="<%=idx %>">
 				<input type ="hidden" name ="pageNum" value ="<%=pageNum %>">
+				<input type ="hidden" name ="old_original_file" value ="<%=fileboard.getOriginal_file() %>">
+				<input type ="hidden" name ="old_real_file" value ="<%=fileboard.getReal_file() %>">
+				
+				
 				<table id="notice">
 					<tr>
 						<td>글쓴이</td>
@@ -45,24 +49,29 @@ FileBoardDTO fileboard = dao.selectContent(idx);
 					</tr>
 					<tr>
 						<td>패스워드</td>
-						<td><input type="text" name="pass" ></td>
+						<td><input type="text" name="pass" required="required"></td>
 					</tr>
 					<tr>
 						<td>제목</td>
-						<td><input type="text" name="subject" value ="<%=fileboard.getSubject() %>"></td>
-					</tr>
-					<tr>
-						<td>파일</td>
-						<td><input type="file" name="original_file"></td>
+						<td><input type="text" name="subject" value ="<%=fileboard.getSubject() %>" required="required"></td>
 					</tr>
 					<tr>
 						<td>내용</td>
-						<td><textarea rows="10" cols="20" name="content" ><%=fileboard.getContent() %></textarea></td>
+						<td><textarea rows="10" cols="20" name="content" required="required"><%=fileboard.getContent() %></textarea></td>
+					</tr>
+					<tr>
+						<td>파일</td>
+						<td>
+						<input type="file" name="original_file" ><br>
+						현재 파일 : <%=fileboard.getOriginal_file() %>
+						</td>
 					</tr>
 				</table>
 
 				<div id="table_search">
 					<input type="submit" value="글수정" class="btn">
+					<input type="button" value="취소" class="btn" onclick = "history.back()">
+					
 				</div>
 			</form>
 			<div class="clear"></div>

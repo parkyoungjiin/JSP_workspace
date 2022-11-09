@@ -1,3 +1,4 @@
+<%@page import="java.io.File"%>
 <%@page import="board.FileBoardDAO"%>
 <%@page import="board.FileBoardDTO"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
@@ -72,7 +73,14 @@ if(insertCount > 0){%>
 	alert("등록에 성공했습니다.");
 	location.href = "driver.jsp";
 	</script>	
-<%}else{%>
+<%}else{
+	File f = new File(realPath, fileboard.getReal_file()); 
+	
+	if(f.exists()){
+		f.delete();
+	}
+%>
+
 	<script>
 	alert("등록에 실패했습니다.");
 	history.back();

@@ -124,6 +124,14 @@ article#front{
 	text-align: left;
 	color: #333;
 }
+
+#news_notice td.td_title{
+	max-width: 300px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	
+}
 #news_notice a{
 	color: #333;
 	text-decoration: none;

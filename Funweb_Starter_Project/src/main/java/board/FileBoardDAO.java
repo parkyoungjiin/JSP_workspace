@@ -147,11 +147,70 @@ public class FileBoardDAO {
 		} catch (SQLException e) {
 			System.out.println("SQL구문 오류 - selectContent");
 			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+			JdbcUtil.close(con);
 		}
 		
 		return fileboard;
 	}//selectContent - idx값을 통해 DTO 조회
 	
+	public String selectRealFile(int idx) {
+		con = JdbcUtil.getConnection();
+		String realFile = null;
+		String sql = "SELECT real_file FROM file_board WHERE idx = ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				realFile = rs.getString(1);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("SQL 구문 오류 - selectRealFile");
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+			JdbcUtil.close(con);
+		}
+			
+		return realFile;
+	}
+	//첫 페이지에 최근 5개 게시물만 나타내는 메서드
+	public List<FileBoardDTO> selectRecentBoardList(){
+		List<FileBoardDTO> recentList = null;
+		con = JdbcUtil.getConnection();
+		
+		String sql = "SELECT idx, name, subject, date FROM file_board ORDER BY idx DESC LIMIT 5";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			recentList = new ArrayList<FileBoardDTO>();
+			while(rs.next()) {
+				FileBoardDTO fileboard = new FileBoardDTO();
+				fileboard.setIdx(rs.getInt("idx"));
+				fileboard.setSubject(rs.getString("subject"));
+				fileboard.setName(rs.getString("name"));
+				fileboard.setDate(rs.getTimestamp("date"));
+				
+				recentList.add(fileboard);
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 구문 오류 - selectRecentBoardList");
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+			JdbcUtil.close(con);
+			
+		}
+		return recentList;
+	}
 	public int FileBoardDelete(int idx, String pass) {
 		int deleteCount = 0;
 		
@@ -169,35 +228,44 @@ public class FileBoardDAO {
 		} catch (SQLException e) {
 			System.out.println("SQL 구문 오류 - FileBoardDelete");
 			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt);
+			JdbcUtil.close(con);
 		}
 		
 		return deleteCount;
 		
 	} //FileBoardDelete 끝 - 게시글 삭제 메서드
 	
-	public int FileBoardUpdate(FileBoardDTO fileboard) {
+	public int FileBoardUpdate(FileBoardDTO fileboard) { // update 구문
 		
 		int updateCount = 0;
 		con = JdbcUtil.getConnection();
 		
-		String sql = "UPDATE file_board SET idx = ?, subject =?, content =? WHERE pass = ? ";
-		
 		try {
+			String sql = "UPDATE file_board SET subject =?, content =?, original_file=?, real_file=? WHERE idx = ? AND pass = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, fileboard.getIdx());
-			pstmt.setString(2, fileboard.getSubject());
-			pstmt.setString(3, fileboard.getContent());
-			pstmt.setString(4, fileboard.getPass());
+			
+			pstmt.setString(1, fileboard.getSubject());
+			pstmt.setString(2, fileboard.getContent());
+			pstmt.setString(3, fileboard.getOriginal_file());
+			pstmt.setString(4, fileboard.getReal_file());
+			pstmt.setInt(5, fileboard.getIdx());
+			pstmt.setString(6, fileboard.getPass());
 			
 			updateCount = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			System.out.println("SQL 구문 오류 - update");
 			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt);
+			JdbcUtil.close(con);
 		}
 		
 		return updateCount;
 		
 		
 		
-	}
+	}//FileBoardUpdate 끝
 }

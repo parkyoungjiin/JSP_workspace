@@ -1,5 +1,10 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.List"%>
+<%@page import="board.FileBoardDTO"%>
+<%@page import="board.FileBoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,35 +41,38 @@
 		  	</div>
 		  	<div class="clear"></div>
 			<div id="sec_news">
-				<h3><span class="orange">Security</span> News</h3>
-				<dl>
-					<dt>Vivamus id ligula....</dt>
-					<dd>Proin quis ante Proin quis anteProin 
-					quis anteProin quis anteProin quis anteProin 
-					quis ante......</dd>
-				</dl>
-				<dl>
-					<dt>Vivamus id ligula....</dt>
-					<dd>Proin quis ante Proin quis anteProin 
-					quis anteProin quis anteProin quis anteProin 
-					quis ante......</dd>
-				</dl>
+				<h3><span class="brown">Security</span> News</h3>
+				<table>
+				
+				<%
+				SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+				FileBoardDAO dao = new FileBoardDAO();
+				
+				//selectRecentBoardList(); -> 파라미터 X (5개로 고정할 거기 때문) / 리턴타입 : List<DTO>
+				
+				List<FileBoardDTO> recentList = dao.selectRecentBoardList();
+				for(FileBoardDTO fileboard : recentList){%>
+				<tr>
+					<td class=td.td_title><a href ="../center/driver_content.jsp?idx=<%=fileboard.getIdx()%>"><%=fileboard.getSubject() %></a></td>
+<%-- 					<td><%=fileboard.getName() %></td> --%>
+					<td><%=sdf.format(fileboard.getDate())%></td>
+				</tr>
+				
+				<% }%>
+				
+				</table>
 			</div>
 		
 			<div id="news_notice">
 		  		<h3 class="brown">News &amp; Notice</h3>
-				<dl>
-					<dt>Vivamus id ligula....</dt>
-					<dd>Proin quis ante Proin quis anteProin 
-					quis anteProin quis anteProin quis anteProin 
-					quis ante......</dd>
-				</dl>
-				<dl>
-					<dt>Vivamus id ligula....</dt>
-					<dd>Proin quis ante Proin quis anteProin 
-					quis anteProin quis anteProin quis anteProin 
-					quis ante......</dd>
-				</dl>
+				<table>
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
+				
+				</table>
+				
 		  	</div>
 	  	</article>
 		  

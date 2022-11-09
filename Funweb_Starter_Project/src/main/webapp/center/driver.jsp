@@ -27,6 +27,7 @@ int startRow = (pageNum-1) * listLimit;
 
 
 String keyword = request.getParameter("keyword");
+
 if(keyword == null){
 	keyword = "";
 }

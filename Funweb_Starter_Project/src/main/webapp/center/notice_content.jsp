@@ -4,9 +4,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-
 int idx = Integer.parseInt(request.getParameter("idx"));
-String pageNum = request.getParameter("pageNum");
+String pageNum = "1";
+if(request.getParameter("pageNum") != null ){
+	pageNum = request.getParameter("pageNum");
+	
+}
 
 BoardDAO dao = new BoardDAO();
 

@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+//세션 아이디를 가져와서 admin일 경우에만 접근
+
+// String sId = (String)session.getAttribute("sId");
+// if(sId == null){
+// 	System.out.println("세션 아이디 없음");
+// }else{
+// 	System.out.println("세션 아이디 있음");
+	
+// }
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +18,16 @@
 <title>center/notice_write.jsp</title>
 <link href="../css/default.css" rel="stylesheet" type="text/css">
 <link href="../css/subpage.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript">
+<%
+String sId = (String)session.getAttribute("sId");
+if(sId == null){%>
+	alert("잘못된 접근입니다.");
+	history.back();
+<%}
+%>
+</script>
 </head>
 <body>
 	<div id="wrap">
