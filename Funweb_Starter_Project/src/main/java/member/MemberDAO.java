@@ -54,10 +54,10 @@ public class MemberDAO {
 		con = JdbcUtil.getConnection();
 		
 		try {
-			String sql = "SELECT id, pass FROM member WHERE id=?, pass=?";
+			String sql = "SELECT id, pass FROM member WHERE id=? AND pass=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
-			pstmt.setString(1, pass);
+			pstmt.setString(2, pass);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {

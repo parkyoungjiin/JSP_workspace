@@ -16,7 +16,8 @@ member.setPass(pass);
 
 boolean isRightUser = dao.isRightUser(id, pass);
 if(isRightUser){
-	response.sendRedirect("main.jsp");
+	session.setAttribute("sId", id);
+	response.sendRedirect("../main/main.jsp");
 }else{%>
 	<script>
 	alert("로그인에 실패했습니다.");

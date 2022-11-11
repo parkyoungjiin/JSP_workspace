@@ -13,15 +13,15 @@ function confirm_logout(){
 <header>
   <!-- login join -->
   <%
-  String id = (String)session.getAttribute("sId");
-  System.out.println(id);
-  if(id == null || id ==""){ //null이거나 null string일 때 login / join을 띄운다.%>
+  String sId = (String)session.getAttribute("sId");
+  System.out.println(sId);
+  if(sId == null || sId ==""){ //null이거나 null string일 때 login / join을 띄운다.%>
   <div id="login"><a href="../member/login.jsp">login</a> | <a href="../member/join.jsp">join</a></div>
   
   <% }else{ %>
   <div id="login">
-  <a href ="../member/member_info.jsp?id=<%=id%>"><%=id%>님</a> <a href = "javascript:confirm_logout()">logout</a>
-  <%if(id.equals("admin")) {%>
+  <a href ="../member/member_info.jsp?id=<%=sId%>"><%=sId%>님</a> <a href = "javascript:confirm_logout()">logout</a>
+  <%if(sId.equals("admin")) {%>
   	| <a href ="../admin/admin_main.jsp">관리자페이지</a>
   <%} %>
   </div>

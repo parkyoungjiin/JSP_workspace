@@ -22,7 +22,7 @@
 <script type="text/javascript">
 <%
 String sId = (String)session.getAttribute("sId");
-if(sId == null){%>
+if(sId == null || !sId.equals("admin")){%>
 	alert("잘못된 접근입니다.");
 	history.back();
 <%}

@@ -4,6 +4,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
+
+String sId = (String)session.getAttribute("sId");
+
 int idx = Integer.parseInt(request.getParameter("idx"));
 String pageNum = "1";
 if(request.getParameter("pageNum") != null ){
@@ -74,9 +77,12 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			</table>
 
 			<div id="table_search">
-				<input type="button" value="글수정" class="btn" onclick="location.href = 'notice_update.jsp?idx=<%=board.getIdx()%>&pageNum=<%=pageNum%>'"> 
-				<input type="button" value="글삭제" class="btn" onclick="location.href = 'notice_delete.jsp?idx=<%=board.getIdx()%>&pageNum=<%=pageNum%>'"> 
-				<input type="button" value="글목록" class="btn" onclick="location.href = 'notice.jsp?pageNum=<%=pageNum %>'">
+				<%
+				if(sId != null || sId.equals("admin")){%>
+					<input type="button" value="글수정" class="btn" onclick="location.href = 'notice_update.jsp?idx=<%=board.getIdx()%>&pageNum=<%=pageNum%>'"> 
+					<input type="button" value="글삭제" class="btn" onclick="location.href = 'notice_delete.jsp?idx=<%=board.getIdx()%>&pageNum=<%=pageNum%>'"> 
+				<%}%>
+					<input type="button" value="글목록" class="btn" onclick="location.href = 'notice.jsp?pageNum=<%=pageNum %>'">
 			</div>
 
 			<div class="clear"></div>

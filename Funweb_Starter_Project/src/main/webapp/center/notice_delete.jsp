@@ -15,8 +15,18 @@ BoardDTO board = new BoardDTO();
 <title>center/notice_delete.jsp</title>
 <link href="../css/default.css" rel="stylesheet" type="text/css">
 <link href="../css/subpage.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
+<%
+String sId = (String)session.getAttribute("sId");
+if(sId == null || !sId.equals("admin")){%>
+	<script>
+	alert("잘못된 접근입니다.");
+	history.back();
+	</script>
+<%}
+%>
 	<div id="wrap">
 		<!-- 헤더 들어가는곳 -->
 		<jsp:include page="../inc/top.jsp" />
