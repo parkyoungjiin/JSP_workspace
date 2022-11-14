@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>center/notice_write.jsp</title>
+<title>center/free_write.jsp</title>
 <link href="../css/default.css" rel="stylesheet" type="text/css">
 <link href="../css/subpage.css" rel="stylesheet" type="text/css">
 </head>
@@ -21,26 +21,31 @@
 		<jsp:include page="../inc/left.jsp" />
 		<!-- 본문 내용 -->
 		<article>
-			<h1>Notice Write</h1>
-			<form action="notice_writePro.jsp" method="post">
+			<h1>free Write</h1>
+			<form action="free_writePro.jsp" method="post" enctype="multipart/form-data">
 				<table id="notice">
 
 					<tr>
 						<td>글쓴이</td>
-						<td><input type="text" name="name"></td>
+						<td><input type="text" name="name" required="required"></td>
 					</tr>
 					<tr>
 						<td>비밀번호</td>
-						<td><input type="password" name="pass"></td>
+						<td><input type="password" name="pass" required="required"></td>
 					</tr>
 					<tr>
 						<td>제목</td>
-						<td><input type="text" name="subject"></td>
+						<td><input type="text" name="subject" required="required"></td>
 					</tr>
 					<tr>
 						<td>내용</td>
-						<td><textarea rows="10" cols="20" name="content"></textarea></td>
+						<td><textarea rows="10" cols="20" name="content" required="required"></textarea></td>
 					</tr>
+					<tr>
+						<td>파일</td>
+						<td><input type="file" name="original_file" required="required"></td>
+					</tr>
+
 
 				</table>
 

@@ -17,6 +17,8 @@ public class freeDTO {
 	private String pass;
 	private String subject;
 	private String content;
+	private String original_file;
+	private String real_file;
 	private Timestamp date;
 	private int readcount;
 	
@@ -50,6 +52,18 @@ public class freeDTO {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public String getOriginal_file() {
+		return original_file;
+	}
+	public void setOriginal_file(String original_file) {
+		this.original_file = original_file;
+	}
+	public String getReal_file() {
+		return real_file;
+	}
+	public void setReal_file(String real_file) {
+		this.real_file = real_file;
+	}
 	public Timestamp getDate() {
 		return date;
 	}
@@ -64,10 +78,11 @@ public class freeDTO {
 	}
 	@Override
 	public String toString() {
-		return "BoardDTO [idx=" + idx + ", name=" + name + ", pass=" + pass + ", subject=" + subject + ", content="
-				+ content + ", date=" + date + ", readcount=" + readcount + "]";
+		return "freeDTO [idx=" + idx + ", name=" + name + ", pass=" + pass + ", subject=" + subject + ", content="
+				+ content + ", original_file=" + original_file + ", real_file=" + real_file + ", date=" + date
+				+ ", readcount=" + readcount + "]";
 	}
-	
+
 	
 	
 }

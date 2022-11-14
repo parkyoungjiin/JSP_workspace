@@ -5,6 +5,6 @@
 				<li><a href="../center/notice.jsp">Notice</a></li>
 				<li><a href="#">Public News</a></li>
 				<li><a href="../center/driver.jsp">Driver Download</a></li>
-				<li><a href="../center/free_writeBoard.jsp">Free Board</a></li>
+				<li><a href="../free/free_board.jsp">Free Board</a></li>
 			</ul>
 		</nav>
