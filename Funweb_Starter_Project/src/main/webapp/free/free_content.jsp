@@ -1,3 +1,4 @@
+<%@page import="board.freeDTO"%>
 <%@page import="board.freeDAO"%>
 <%@page import="com.mysql.cj.result.Field"%>
 <%@page import="board.FileBoardDTO"%>
@@ -16,6 +17,8 @@ if(request.getParameter("pageNum") != null ){
 }
 
 freeDAO dao = new freeDAO();
+freeDTO freeboard = dao.FreeSelectContent(idx);
+
 
 
 
@@ -47,36 +50,36 @@ freeDAO dao = new freeDAO();
 			<table id="notice">
 				<tr>
 					<td>글번호</td>
-					<td><%=fileboard.getIdx() %> </td>
+					<td><%=freeboard.getIdx() %> </td>
 					<td>글쓴이</td>
-					<td><%=fileboard.getName() %></td>
+					<td><%=freeboard.getName() %></td>
 				</tr>
 				<tr>
 					<td>작성일</td>
-					<td><%=fileboard.getDate() %></td>
+					<td><%=freeboard.getDate() %></td>
 					<td>조회수 </td>
-					<td><%=fileboard.getReadcount() %></td>
+					<td><%=freeboard.getReadcount() %></td>
 				</tr>
 				<tr>
 					<td>제목</td>
-					<td colspan="3"><%=fileboard.getSubject() %></td>
+					<td colspan="3"><%=freeboard.getSubject() %></td>
 				</tr>
 				<tr>
 					<td>파일</td>
 					<td colspan="3">
-					<a href ="../upload/<%=fileboard.getReal_file()%>" download ="<%=fileboard.getOriginal_file() %>"><%=fileboard.getOriginal_file() %></a>
+					<a href ="../upload/<%=freeboard.getReal_file()%>" download ="<%=freeboard.getOriginal_file() %>"><%=freeboard.getOriginal_file() %></a>
 					
 					</td>
 				</tr>
 				<tr>
 					<td height ="300" >내용</td>
-					<td colspan="3"><%=fileboard.getContent() %></td>
+					<td colspan="3"><%=freeboard.getContent() %></td>
 				</tr>
 			</table>
 
 			<div id="table_search">
-				<input type="button" value="글수정" class="btn" onclick="location.href = 'driver_update.jsp?idx=<%=fileboard.getIdx()%>&pageNum=<%=pageNum%>'"> 
-				<input type="button" value="글삭제" class="btn" onclick="location.href = 'driver_delete.jsp?idx=<%=fileboard.getIdx()%>&pageNum=<%=pageNum%>'"> 
+				<input type="button" value="글수정" class="btn" onclick="location.href = 'free_update.jsp?idx=<%=freeboard.getIdx()%>&pageNum=<%=pageNum%>'"> 
+				<input type="button" value="글삭제" class="btn" onclick="location.href = 'free_delete.jsp?idx=<%=freeboard.getIdx()%>&pageNum=<%=pageNum%>'"> 
 				<input type="button" value="글목록" class="btn" onclick="location.href = 'driver.jsp'">
 			</div>
 

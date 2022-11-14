@@ -136,19 +136,25 @@ public class freeDAO {
 		freeDTO freeboard = null;
 		con = JdbcUtil.getConnection();
 		String sql = "SELECT * FROM free_board WHERE idx = ?";
-		pstmt = con.prepareStatement(sql);
-		pstmt.setInt(1, idx);
-		rs = pstmt.executeQuery();
-		
-		if(rs.next()) {
-			freeboard.setIdx(rs.getInt("idx"));
-			freeboard.setName(rs.getString("name"));
-			freeboard.setDate(rs.getTimestamp("date"));
-			freeboard.setReadcount(rs.getInt("readcount"));
-			freeboard.setSubject(rs.getString("subject"));
-			freeboard.setOriginal_file(rs.getString("original_file"));
-			freeboard.setReal_file(rs.getString("real_file"));
-			freeboard.setContent(rs.getString("content"));
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				freeboard = new freeDTO();
+				freeboard.setIdx(rs.getInt("idx"));
+				freeboard.setName(rs.getString("name"));
+				freeboard.setDate(rs.getTimestamp("date"));
+				freeboard.setReadcount(rs.getInt("readcount"w));
+				freeboard.setSubject(rs.getString("subject"));
+				freeboard.setOriginal_file(rs.getString("original_file"));
+				freeboard.setReal_file(rs.getString("real_file"));
+				freeboard.setContent(rs.getString("content"));
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL구문 오류");
+			e.printStackTrace();
 		}
 		
 		

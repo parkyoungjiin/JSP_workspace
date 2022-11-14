@@ -4,14 +4,16 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class freeDTO {
-//	CREATE TABLE board (
-//			idx INT primary key,
-//			name VARCHAR(20) NOT NULL,
-//			pass VARCHAR(16) NOT NULL,
-//			subject VARCHAR(50) NOT NULL,
-//			content VARCHAR(2000) NOT NULL,
-//			date TIMESTAMP NOT NULL,
-//			readcount INT NOT NULL);
+//	CREATE TABLE free_board (
+//	idx INT primary key,
+//	name VARCHAR(20) NOT NULL,
+//	pass VARCHAR(16) NOT NULL,
+//	subject VARCHAR(50) NOT NULL,
+//	content VARCHAR(2000) NOT NULL,
+//	original_file VARCHAR(200) NOT NULL,
+//	real_file VARCHAR(200) NOT NULL,	
+//	date TIMESTAMP NOT NULL,
+//	readcount INT NOT NULL);
 	private int idx;
 	private String name;
 	private String pass;
