@@ -125,13 +125,14 @@ article#front{
 	color: #333;
 }
 
-#news_notice td.td_title{
+/* 메인페이지 최근 게시물 목록 제목 길이 제한(잘린 부분은 ... 으로 표시) */
+#news_notice td.td_title {
 	max-width: 300px;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	white-space: nowrap;
-	
 }
+
 #news_notice a{
 	color: #333;
 	text-decoration: none;

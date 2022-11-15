@@ -155,9 +155,16 @@ article table#notice td{
 	border-bottom-style: dotted;
 	border-bottom-color: #999;
 }
-article table#notice td.left{
+
+/* 게시물 제목 길이 제한(잘린 부분은 ... 으로 표시) */
+article table#notice td.td_title {
 	text-align: left;
+	max-width: 300px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
+
 article th.tno{
 	width: 50px;
 	border-top-left-radius: 5px;
@@ -220,42 +227,67 @@ article #table_search{
 	text-decoration: underline;
 }
 article table#notice tr:hover{
-	background-color: #EEFDFF;
+	background-color: #D0FFFF;
 	cursor: pointer;
 	cursor: hand;
 }
+article table#notice_content {
+	width: 670px;
+	border-collapse: collapse; 
+}
 
-/* 댓글 작성 항목 css*/
-#replyTextarea{
+article table#notice_content td {
+	text-align: center;
+	padding: 6px 0;
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	border-bottom-color: #999;
+}
+article table#notice_content td.left{
+	text-align: left;
+}
+
+article table#notice_content td textarea {
+	width: 100%;
+}
+
+article table#notice_content .reply_btn {
+	height: 65px;
+}
+
+
+/* 댓글 작성 항목 CSS */
+#replyTextarea {
 	width: 400px;
 	height: 40px;
-	resize: none;
+	resize: none; /* Textarea 크기 조절 방지 */
 	vertical-align: middle;
 }
 
-#replySubmit{
-	height: 40px;
+#replySubmit {
+	height: 45px;
+	vertical-align: middle;
 }
-/* 댓글 목록 표시 항목 css */
-#replyContent{
-	display : inline-block;
+
+/* 댓글 목록 표시 항목 CSS */
+#replyContent {
+	display: inline-block;
 	width: 250px;
-	margin-top: 10px;
+	margin-top: 5px;
 }
-#replyId{
-	display : inline-block;
+
+#replyId {
+	display: inline-block;
 	width: 80px;
-	margin-top: 10px;
-	
-	
+	margin-top: 5px;
 }
-#replyDate{
-	display : inline-block;
+
+#replyDate {
+	display: inline-block;
 	width: 150px;
-	margin-top: 10px;
-	
-	
+	margin-top: 5px;
 }
+
 /* ----------------------------------- */
 
 article p{
