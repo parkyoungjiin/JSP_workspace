@@ -225,6 +225,37 @@ article table#notice tr:hover{
 	cursor: hand;
 }
 
+/* 댓글 작성 항목 css*/
+#replyTextarea{
+	width: 400px;
+	height: 40px;
+	resize: none;
+	vertical-align: middle;
+}
+
+#replySubmit{
+	height: 40px;
+}
+/* 댓글 목록 표시 항목 css */
+#replyContent{
+	display : inline-block;
+	width: 250px;
+	margin-top: 10px;
+}
+#replyId{
+	display : inline-block;
+	width: 80px;
+	margin-top: 10px;
+	
+	
+}
+#replyDate{
+	display : inline-block;
+	width: 150px;
+	margin-top: 10px;
+	
+	
+}
 /* ----------------------------------- */
 
 article p{

@@ -28,7 +28,7 @@ BoardDTO board = dao.selectBoard(idx);
 
 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-
+String board_type = "driver";
 %>
 <!DOCTYPE html>
 <html>
@@ -86,6 +86,34 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			</div>
 
 			<div class="clear"></div>
+			
+			<div id = "replyArea">
+				<!-- 댓글 작성 영역 (글번호, 게시판타입, 아이디) ** 세션 아이디가 있을 때만 보여지도록 **-->
+				<%
+				if(session.getAttribute("sId") != null){%>
+					
+				<div id = "insertForm">
+					<form action="content_reply_WritePro.jsp" method="post">
+						<input type="hidden" name = "ref_idx" value = "<%=idx%>">
+						<input type="hidden" name = "pageNum" value = "<%=pageNum%>">
+						<input type="hidden" name = "board_type" value = "<%=board_type%>">
+						<textarea rows="3" cols="40" name = "content"></textarea>
+						<input type="submit" value = "등록">
+					</form>
+				</div>			
+				<%}%>
+				<!-- 댓글 표시 영역 -->
+				<div id = "replyViewArea">
+					댓글 : 댓글 관리자입니다<br>
+					댓글 : 댓글 관리자입니다<br>
+					댓글 : 댓글 관리자입니다<br>
+				</div>
+				
+				<!-- 댓글 페이지 표시 영역 -->
+				<div id = "">
+				
+				</div>
+			</div>
 		</article>
 
 		<div class="clear"></div>

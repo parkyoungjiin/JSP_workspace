@@ -1,6 +1,3 @@
-<%@page import="java.util.List"%>
-<%@page import="board.BoardReplyDTO"%>
-<%@page import="board.BoardReplyDAO"%>
 <%@page import="com.mysql.cj.result.Field"%>
 <%@page import="board.FileBoardDTO"%>
 <%@page import="board.FileBoardDAO"%>
@@ -21,7 +18,6 @@ FileBoardDAO dao = new FileBoardDAO();
 
 FileBoardDTO fileboard = dao.selectContent(idx);
 
-String board_type = "driver";
 
 
 
@@ -78,56 +74,14 @@ String board_type = "driver";
 					<td colspan="3"><%=fileboard.getContent() %></td>
 				</tr>
 			</table>
-			<%if(session.getAttribute("sId") != null) {%>
+
 			<div id="table_search">
 				<input type="button" value="글수정" class="btn" onclick="location.href = 'driver_update.jsp?idx=<%=fileboard.getIdx()%>&pageNum=<%=pageNum%>'"> 
 				<input type="button" value="글삭제" class="btn" onclick="location.href = 'driver_delete.jsp?idx=<%=fileboard.getIdx()%>&pageNum=<%=pageNum%>'"> 
-			<%}%>	
 				<input type="button" value="글목록" class="btn" onclick="location.href = 'driver.jsp'">
 			</div>
 
 			<div class="clear"></div>
-			
-			<div id = "replyArea">
-				<!-- 댓글 작성 영역 (글번호, 게시판타입, 아이디) ** 세션 아이디가 있을 때만 보여지도록 **-->
-				<%
-				if(session.getAttribute("sId") != null){%>
-					
-				<div id = "insertForm">
-					<form action="content_reply_WritePro.jsp" method="post">
-						<input type="hidden" name = "ref_idx" value = "<%=idx%>">
-						<input type="hidden" name = "pageNum" value = "<%=pageNum%>">
-						<input type="hidden" name = "board_type" value = "<%=board_type%>">
-						<textarea rows="3" cols="40" name = "content" id = "replyTextarea"></textarea>
-						<input type="submit" value = "등록" id = "replySubmit">
-					</form>
-				</div>			
-				<%}%>
-				<!-- 댓글 표시 영역 -->
-				<div id = "replyViewArea">
-				<%
-				int startRow = 0;
-				int listLimit = 5;
-				BoardReplyDAO dao2 = new BoardReplyDAO();
-				
-				List<BoardReplyDTO> replyList = dao2.getReplyList(idx, board_type, startRow, listLimit);
-				
-				for(BoardReplyDTO reply : replyList){
-					%>
-					<img src="../images/delete.png" width="15px" height="15px">
-					<span id = "replyContent"><%=reply.getContent() %></span>
-					<span id = "replyId"><%=reply.getId() %></span>
-					<span id = "replyDate"><%=reply.getDate() %></span>
-				<% }%>
-				
-				</div>
-				
-				<!-- 댓글 페이지 표시 영역 -->
-				<div id = "">
-				
-				</div>
-			</div>
-						
 		</article>
 
 		<div class="clear"></div>
