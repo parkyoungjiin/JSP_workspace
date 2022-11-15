@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="board.BoardReplyDTO"%>
+<%@page import="board.BoardReplyDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="board.BoardDTO"%>
 <%@page import="board.BoardDAO"%>
@@ -28,7 +31,7 @@ BoardDTO board = dao.selectBoard(idx);
 
 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-String board_type = "driver";
+String board_type = "notice";
 %>
 <!DOCTYPE html>
 <html>
@@ -104,9 +107,27 @@ String board_type = "driver";
 				<%}%>
 				<!-- 댓글 표시 영역 -->
 				<div id = "replyViewArea">
-					댓글 : 댓글 관리자입니다<br>
-					댓글 : 댓글 관리자입니다<br>
-					댓글 : 댓글 관리자입니다<br>
+					<table>
+						<tr>
+							<th>댓글</th>
+							<th>작성자</th>
+							<th>날짜</th>
+						</tr>
+						<%
+						int startRow = 0;
+						int listLimit = 5;
+						
+						BoardReplyDAO dao2 = new BoardReplyDAO(); 
+						List<BoardReplyDTO> replyList = dao2.getReplyList(idx, board_type, startRow, listLimit);
+						for(BoardReplyDTO reply : replyList){%>
+						<tr>
+							<td><%=reply.getContent() %></td>							
+							<td><%=reply.getId()%></td>							
+							<td><%=reply.getDate() %></td>							
+						</tr>
+							
+						<%}%>
+					</table>
 				</div>
 				
 				<!-- 댓글 페이지 표시 영역 -->

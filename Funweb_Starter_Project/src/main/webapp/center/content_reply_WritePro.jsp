@@ -33,7 +33,7 @@ String sId = (String)session.getAttribute("sId");
 BoardReplyDTO reply = new BoardReplyDTO();
 reply.setId(sId);
 reply.setContent(request.getParameter("content"));
-reply.setRef_idx(Integer.parseInt(request.getParameter("ref_idx")));
+reply.setRef_idx(Integer.parseInt(request.getParameter("ref_idx")));//게시글 번호
 reply.setBoard_type(request.getParameter("board_type"));
 //출력(확인용)
 System.out.println(reply);	

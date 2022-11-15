@@ -41,7 +41,7 @@
 		  	</div>
 		  	<div class="clear"></div>
 			<div id="sec_news">
-				<h3><span class="brown">Security</span> News</h3>
+				<h3><span class="brown">File board</span></h3>
 				<table>
 				
 				<%
@@ -64,7 +64,7 @@
 			</div>
 		
 			<div id="news_notice">
-		  		<h3 class="brown">News &amp; Notice</h3>
+		  		<h3 class="brown">Notice board</h3>
 				<table>
 					<tr>
 						<td></td>

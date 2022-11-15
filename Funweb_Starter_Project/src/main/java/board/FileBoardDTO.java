@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class FileBoardDTO {
-//	CREATE TABLE free_board (
+//	CREATE TABLE file_board (
 //			idx INT primary key,
 //			name VARCHAR(20) NOT NULL,
 //			pass VARCHAR(16) NOT NULL,
