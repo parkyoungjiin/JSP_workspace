@@ -41,7 +41,7 @@
 		  	</div>
 		  	<div class="clear"></div>
 			<div id="sec_news">
-				<h3><span class="brown">File board</span></h3>
+				<h3><span class="orange">File board</span></h3>
 				<table>
 				
 				<%

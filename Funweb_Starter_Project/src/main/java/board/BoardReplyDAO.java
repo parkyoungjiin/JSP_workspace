@@ -60,6 +60,7 @@ public class BoardReplyDAO {
 			
 			while(rs.next()) {
 				BoardReplyDTO reply = new BoardReplyDTO();
+				reply.setIdx(rs.getInt("idx"));
 				reply.setId(rs.getString("id"));
 				reply.setContent(rs.getString("content"));
 				reply.setDate(rs.getTimestamp("date"));
@@ -67,6 +68,7 @@ public class BoardReplyDAO {
 				reply.setBoard_type(rs.getString("board_type"));
 				
 				replyList.add(reply);
+				System.out.println(reply);
 			}
 		} catch (SQLException e) {
 			System.out.println("댓글 조회 구문 오류");
@@ -81,5 +83,27 @@ public class BoardReplyDAO {
 		
 		return replyList;
 		
+	}//getReplyList
+	
+	public int deleteReply(int idx) {
+		int deleteCount = 0;
+		
+		con = JdbcUtil.getConnection();
+		try {
+			String sql = "DELETE FROM board_reply WHERE idx =?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			
+			deleteCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("deleteReply 구문 오류");
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt);
+			JdbcUtil.close(con);
+		}
+		
+		
+		return deleteCount;
 	}
 }

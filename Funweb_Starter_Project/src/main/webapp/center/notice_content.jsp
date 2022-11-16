@@ -1,3 +1,4 @@
+<%@page import="java.text.Format"%>
 <%@page import="java.util.List"%>
 <%@page import="board.BoardReplyDTO"%>
 <%@page import="board.BoardReplyDAO"%>
@@ -9,8 +10,8 @@
 <%
 
 String sId = (String)session.getAttribute("sId");
-
-int idx = Integer.parseInt(request.getParameter("idx"));
+//변수 idx => 게시글 번호
+int ref_idx = Integer.parseInt(request.getParameter("idx"));
 String pageNum = "1";
 if(request.getParameter("pageNum") != null ){
 	pageNum = request.getParameter("pageNum");
@@ -20,10 +21,10 @@ if(request.getParameter("pageNum") != null ){
 BoardDAO dao = new BoardDAO();
 
 //조회수 증가 작업
-dao.updateReadcount(idx);
+dao.updateReadcount(ref_idx);
 
 //클릭했을 때 목록을 보여줌
-BoardDTO board = dao.selectBoard(idx);
+BoardDTO board = dao.selectBoard(ref_idx);
 
 // board.setContent(board.getContent().replaceAll(System.getProperty("line.separator"), "<br>"));
 
@@ -33,6 +34,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 String board_type = "notice";
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,7 +99,7 @@ String board_type = "notice";
 					
 				<div id = "insertForm">
 					<form action="content_reply_WritePro.jsp" method="post">
-						<input type="hidden" name = "ref_idx" value = "<%=idx%>">
+						<input type="hidden" name = "ref_idx" value = "<%=ref_idx%>">
 						<input type="hidden" name = "pageNum" value = "<%=pageNum%>">
 						<input type="hidden" name = "board_type" value = "<%=board_type%>">
 						<textarea rows="3" cols="40" name = "content"></textarea>
@@ -109,7 +111,8 @@ String board_type = "notice";
 				<div id = "replyViewArea">
 					<table>
 						<tr>
-							<th>댓글</th>
+							<th>삭제</th>
+							<th>내용</th>
 							<th>작성자</th>
 							<th>날짜</th>
 						</tr>
@@ -117,13 +120,20 @@ String board_type = "notice";
 						int startRow = 0;
 						int listLimit = 5;
 						
+						
 						BoardReplyDAO dao2 = new BoardReplyDAO(); 
-						List<BoardReplyDTO> replyList = dao2.getReplyList(idx, board_type, startRow, listLimit);
+						List<BoardReplyDTO> replyList = dao2.getReplyList(ref_idx, board_type, startRow, listLimit);
+						
+		
+
+						
 						for(BoardReplyDTO reply : replyList){%>
 						<tr>
+							<td><img src="../images/delete.png" width="15px" height="15px" 
+							onclick="location.href='content_reply_deletePro.jsp?idx=<%=reply.getIdx()%>&pageNum=<%=pageNum%>&board_type=<%=reply.getBoard_type()%>&ref_idx=<%=ref_idx%>'"></td>
 							<td><%=reply.getContent() %></td>							
 							<td><%=reply.getId()%></td>							
-							<td><%=reply.getDate() %></td>							
+							<td><%=sdf.format(reply.getDate()) %></td>							
 						</tr>
 							
 						<%}%>

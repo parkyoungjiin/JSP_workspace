@@ -118,7 +118,7 @@ String board_type = "driver";
 					<img src="../images/delete.png" width="15px" height="15px">
 					<span id = "replyContent"><%=reply.getContent() %></span>
 					<span id = "replyId"><%=reply.getId() %></span>
-					<span id = "replyDate"><%=reply.getDate() %></span>
+					<span id = "replyDate"><%=reply.getDate() %></span><br>
 				<% }%>
 				
 				</div>
