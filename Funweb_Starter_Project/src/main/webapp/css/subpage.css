@@ -23,6 +23,8 @@
 }
 
 #sub_menu{
+	font-family: 'Neucha', cursive;
+	font-size: 20px;
 	width: 238px;
 	float: left;
 	margin: 20px;
@@ -64,8 +66,8 @@ article{
 	line-height: 1.5em
 }
 article h1{
-	font-family: "Times New Roman";
-	font-size: 45px;
+	font-family: 'Neucha', cursive;
+	font-size: 60px;
 	color: #CCC;
 	margin: 20px 0;
 	font-weight: normal;

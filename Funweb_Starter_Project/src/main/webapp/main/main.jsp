@@ -10,6 +10,11 @@
 <head>
 <meta charset="UTF-8">
 <title>main/main.jsp</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Kaushan+Script&family=Neucha&display=swap" rel="stylesheet">
+
 <link href="../css/default.css" rel="stylesheet" type="text/css">
 <link href="../css/front.css" rel="stylesheet" type="text/css">
 </head>
@@ -53,9 +58,8 @@
 				List<FileBoardDTO> recentList = dao.selectRecentBoardList();
 				for(FileBoardDTO fileboard : recentList){%>
 				<tr>
-					<td class=td.td_title><a href ="../center/driver_content.jsp?idx=<%=fileboard.getIdx()%>"><%=fileboard.getSubject() %></a></td>
-<%-- 					<td><%=fileboard.getName() %></td> --%>
-					<td><%=sdf.format(fileboard.getDate())%></td>
+					<td class=td><a href ="../center/driver_content.jsp?idx=<%=fileboard.getIdx()%>"><%=fileboard.getSubject() %></a></td>
+					<td class=td><%=sdf.format(fileboard.getDate())%></td>
 				</tr>
 				
 				<% }%>

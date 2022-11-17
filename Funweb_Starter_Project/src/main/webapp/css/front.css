@@ -80,6 +80,8 @@ article#front{
 
 #sec_news .orange{
 	color: #f26522;
+	text-align: center;
+/* 	text-align: justify; */
 }
 
 
@@ -96,6 +98,12 @@ article#front{
 	margin-left: 0;
 	color: #333;
 	
+}
+#sec_news td {
+	max-width: 300px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
 
 

@@ -13,6 +13,7 @@ String sId = (String)session.getAttribute("sId");
 //변수 idx => 게시글 번호
 int ref_idx = Integer.parseInt(request.getParameter("idx"));
 String pageNum = "1";
+
 if(request.getParameter("pageNum") != null ){
 	pageNum = request.getParameter("pageNum");
 	
@@ -40,6 +41,9 @@ String board_type = "notice";
 <head>
 <meta charset="UTF-8">
 <title>center/notice_content.jsp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Kaushan+Script&family=Neucha&display=swap" rel="stylesheet">
 <link href="../css/default.css" rel="stylesheet" type="text/css">
 <link href="../css/subpage.css" rel="stylesheet" type="text/css">
 </head>

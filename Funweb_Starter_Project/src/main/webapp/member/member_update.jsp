@@ -16,10 +16,12 @@ member.setAddress1(request.getParameter("address1"));
 member.setAddress2(request.getParameter("address2"));
 member.setPhone(request.getParameter("phone"));
 
+String id = member.getId();
+String pass = member.getPass();
 //2. dao를 생성하여 패스워드 일치 여부에 따라 true일 경우 수정할 수 있도록
 
 MemberDAO dao = new MemberDAO();
-boolean isRightUser = dao.isRightUser(member);
+boolean isRightUser = dao.isRightUser(id, pass);
 //3. 패스워드가 일치할 경우 작업하는데 newPass 가 있을 경우 DTO 객체의 패스워드를 새 패스워드로 교체 
 if(isRightUser){
 	boolean isChangePass = false;
