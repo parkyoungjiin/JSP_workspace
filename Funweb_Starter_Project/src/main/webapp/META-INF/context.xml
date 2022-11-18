@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+[DBCP 설정을 위한 context.xml 파일 설정]
+
+
+1. name 속성 : 공유할 리소스 이름
+2. auth 속성 : 자원관리를 수행할 대상(인증 대상) 지정 -> 톰캣이 인증을 담당하므로 "Container" 지정
+3. type 속성 : 웹 상에서 리소스 사용 시 실제 사용될 클래스를 지정(커넥션 관리 담당 객체 이름)
+=> java.sql 패키지의 DataSource 클래스(인터페이스) 지정
+
+4. driverClassName 속성(*) : JDBC 드라이버 클래스의 위치를 지정
+ex) com.mysql.cj.jdbc.Driver
+
+5. url 속성(*) : JDBC 접속에 필요한 URL 정보 지정
+6. username 속성(*) : 계정명 (DB접속)
+7. password 속성(*) : 패스워드 (DB접속)
+8. matTotal 속성(*) : 미리 생성해 놓을 Connection 객체 수 (생략 가능)
+
+ -->
+ <Context>
+	 <Resource
+	 	name ="jdbc/MySQL"
+	 	auth ="Container"
+		type ="javax.sql.DataSource"	 
+		driverClassName = "com.mysql.cj.jdbc.Driver" 
+		url = "jdbc:mysql://localhost:3306/funweb5"
+		username = "root"
+		password = "1234"
+		maxTotal = "100"
+	 />
+ </Context>

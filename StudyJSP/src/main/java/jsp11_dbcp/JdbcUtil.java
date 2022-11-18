@@ -1,4 +1,4 @@
-package DB;
+package jsp11_dbcp;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,7 +15,11 @@ import javax.sql.DataSource;
 public class JdbcUtil {
 	//1. Connection 객체 생성하는 getConnection 메서드 정의
 	public static Connection getConnection() {
+		//context.xml에 설정된 DBCP로 부터 Connection 객체를 가져와 리턴
+		
 		Connection con = null;
+		
+		
 		try {
 			//1. context.xml 파일 내의 <Context> 태그에 해당하는 부분 가져옴.
 			Context initCtx = new InitialContext(); // 업캐스팅 ( 클래스명이 다름 ! )
@@ -45,32 +49,28 @@ public class JdbcUtil {
 		}
 		
 		return con;
+	
+	
 	}//getConnection 메서드 끝
 	
 	//2. close() 메서드 정의 (자원반환을 공통으로 수행)
 	public static void close(Connection con) {
 		try {
-			if(con != null) {
-				con.close();
-			}
+			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}//close 끝
 	public static void close(PreparedStatement pstmt) {
 		try {
-			if(pstmt != null) {
-				pstmt.close();
-			}
+			pstmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}//close 끝
 	public static void close(ResultSet rs) {
 		try {
-			if(rs != null) {
 			rs.close();
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
