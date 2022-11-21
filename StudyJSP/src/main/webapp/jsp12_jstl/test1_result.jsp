@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
 <%
 request.setCharacterEncoding("UTF-8");
 
@@ -14,11 +15,11 @@ request.setCharacterEncoding("UTF-8");
 </head>
 <body>
 	<h1>test1_result.jsp</h1>
-	ÀÌ¸§ : <%=request.getParameter("name") %> <br>
-	³ªÀÌ : <%=request.getParameter("age") %><br>
+	ì´ë¦„ : <%=request.getParameter("name") %> <br>
+	ë‚˜ì´ : <%=request.getParameter("age") %><br>
 	testValue1 : <%=session.getAttribute("testValue") %><br>
 	<hr>
-	<%-- EL(Expression Language) »ç¿ëÇÏ¿© ÆÄ¶ó¹ÌÅÍ Ã³¸®(³»Àå°´Ã¼ : param, ) --%>
+	<%-- EL(Expression Language) ì‚¬ìš©í•˜ì—¬ íŒŒë¼ë¯¸í„° ì²˜ë¦¬(ë‚´ì¥ê°ì²´ : param, ) --%>
 	
 	\${param.name } : ${param.name }<br>
 	\${param.age } : ${param.age }<br>

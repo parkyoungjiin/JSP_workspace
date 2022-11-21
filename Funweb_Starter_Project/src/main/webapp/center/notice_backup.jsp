@@ -5,8 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri ="http://java.sun.com/jsp/jstl/core" %>
-<%--JSTL의 형식을 지정하기 위한 라이브러리 : fmt --%>
-<%@ taglib prefix="fmt" uri ="http://java.sun.com/jsp/jstl/fmt" %>
+	
 <%
 
 //작성일자 표시 형식 변경을 위해 SimpleDateFormat 활용
@@ -50,11 +49,6 @@ System.out.println(pageNum);
 int startRow = (pageNum-1) * listLimit;
 List<BoardDTO> boardlist = dao.selectBoardList(startRow, listLimit);
 
-//boardlist의 값을 boardList라는 name의 속성으로 지정한다.
-//pageContext.setAttribute(String name, Object value)
-// ->  이름이 name인 속성의 값을 value로 지정합니다.
-
-pageContext.setAttribute("boardList", boardlist);
 
 
 
@@ -96,25 +90,19 @@ pageContext.setAttribute("boardList", boardlist);
 				<!-- 글 목록 반복 표시할 위치 -->
 				
 				
-				<c:forEach var="board" items="${boardList }">
-					<%--pageNUm 파라미터가 없을 경우 기본값 1로 설정 (<c:out> 태그의 default 속성 활용) --%>
-					<tr onclick="location.href='notice_content.jsp?idx=${board.idx }&pageNum=<c:out value ='${param.pageNum }' default ='1' />'">
-						<td>${board.idx }</td>
-						<td class="left">${board.subject }</td>
-						<td>${board.name}</td>
-						<%--fmt 라이브러리를 사용하여 날짜 형식 변경 (type : date, time, both)--%>
-<%-- 						<td><fmt:formatDate value="${board.date }" type="date"/> </td> --%>
-						<%--패턴 사용 (pattern)--%>
-						<td><fmt:formatDate value="${board.date }" pattern="yy-MM-dd HH:mm"/> </td>
-						<td>${board.readcount }</td>
-					</tr>
-				</c:forEach>
-				
+				<%//향상된 for문
+				for(BoardDTO board : boardlist){%>
+				<tr onclick="location.href='notice_content.jsp?idx=<%=board.getIdx()%>&pageNum=<%=pageNum %>'">
+					<td><%=board.getIdx() %></td>
+					<td class="left"><%=board.getSubject() %></td>
+					<td><%=board.getName() %></td>
+					<td><%=sdf.format(board.getDate()) %></td>
+					<td><%=board.getReadcount() %></td>
+				</tr>
+				<%} %>
 			</table>
 			<div id="table_search">
-				<c:if test="${not empty sessionScope.sId and sessionScope.sId eq 'admin' }">
-					<input type="button" value="글쓰기" class="btn" onclick="location.href='notice_write.jsp'">
-				</c:if>
+				<input type="button" value="글쓰기" class="btn" onclick="location.href='notice_write.jsp'">
 			</div>
 			<div id="table_search">
 				<form action="notice_search.jsp" method="get">
@@ -132,7 +120,7 @@ pageContext.setAttribute("boardList", boardlist);
 			int pageListLimit = 3;
 			
 			//3. 전체 게시물 수를 페이지 당 게시물 목록 수로 나눈 나머지 Ex) 21개일 때 
-// 			int maxPage = listcount / listLimit; (listLimit는 위에 10으로 변수 선언함.) 
+// 			int maxPage = listcount / listLimit;
 			
 // 			if( listcount % listLimit > 0){
 // 				maxPage++;
@@ -152,55 +140,40 @@ pageContext.setAttribute("boardList", boardlist);
 			//5. 끝 페이지
 			int endPage = startPage + pageListLimit-1;
 			
-			//JSTL , EL 접근 하기 위해 pageContext 객체에 저장
-			pageContext.setAttribute("pageNum", pageNum);
-			pageContext.setAttribute("maxPage", maxPage);
-			pageContext.setAttribute("startPage", startPage);
-			pageContext.setAttribute("endPage", endPage);
 			%>
-			
-			<!--  현재 페이지가 1보다 클 경우 -1값, 아니면 링크 동작을 제거 -->
-			<%--JSTL을 사용하여 Prev 버튼 기능 처리 --%>
-			
-			<c:choose>
-				<c:when test="${pageNum gt 1}">
-					<a href="notice.jsp?pageNum=<%=pageNum -1%>">Prev</a>
+				<!--  현재 페이지가 1보다 클 경우 -1값, 아니면 링크 동작을 제거 -->
+				<%
+					if(pageNum > 1){%>
+						<a href="notice.jsp?pageNum=<%=pageNum -1%>">Prev</a>
+					<%}else{ %>
+						<a href="javascript:void(0)">Prev</a>
+					<% }%>
 				
-				</c:when>
-				<c:otherwise>
-					<a href="javascript:void(0)">Prev</a>
-				</c:otherwise>			
-			</c:choose>
-			
 				
-			<c:forEach var = "i" begin="${startPage }" end="${endpage }" step="1">
-				<c:choose>
-					<c:when test="${pageNum eq 'i' }">
-						<a href="javascript:void(0)">${i }</a>
+				<%
+				for(int i = startPage ; i < endPage ; i++){%>
+					<%if(pageNum ==i){%>
+						<a href="javascript:void(0)"><%=i %></a>
+					<%}else{
+						%>
+						<a href="notice.jsp?pageNum=<%=i%>"><%=i %></a>
+					<%} %>
 					
-					</c:when>
-					<c:otherwise>
-						<a href="notice.jsp?pageNum=">${i }</a>
-			
-					</c:otherwise>
-				</c:choose>
-			
-			</c:forEach>	
+				<% }%>
 				
 				
-			<!--  next(현재페이지번호 + 1) 의 경우는 현재 페이지가 마지막 페이지일 때 링크 동작을 제거 -->
-			<%--JSTL을 사용하여 Next 버튼 기능 처리 --%>
-				
-				<c:choose>
-					<c:when test="${pageNum lt maxPage }">
-						<a href="notice.jsp?pageNum=${pageNum + 1 }">Next</a>
-						
-					</c:when>
-					<c:otherwise>
+				<!--  next(현재페이지번호 + 1) 의 경우는 현재 페이지가 마지막 페이지일 때 링크 동작을 제거 -->
+				<%
+				if(pageNum < maxPage  ){// next는 마지막 페이지보다 작을 때까지 동작%> 
+					<a href="notice.jsp?pageNum=<%=pageNum + 1%>">Next</a>
+				<%}else{%>
 					<a href="javascript:void(0)">Next</a>
-					</c:otherwise>
-				</c:choose>
+				<%} %>
 				
+				
+				
+				
+		
 			</div>
 		</article>
 

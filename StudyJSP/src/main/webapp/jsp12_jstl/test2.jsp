@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri ="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -12,18 +12,18 @@
 	<c:set var="str"  value="Hello, World!"/>
 	<h3>\${str } = ${str }</h3>
 	
-	<%--ÀÚ¹ÙÄÚµå·Î »ý¼ºÇÑ ÇöÀç ÆäÀÌÁöÀÇ º¯¼ö »ç¿ëÇÏ±â À§ÇØ¼­´Â --%>
+	<%--ìžë°”ì½”ë“œë¡œ ìƒì„±í•œ í˜„ìž¬ íŽ˜ì´ì§€ì˜ ë³€ìˆ˜ ì‚¬ìš©í•˜ê¸° ìœ„í•´ì„œëŠ” --%>
 	<%String str2 = "Hello, World!"; %>
-	<%-- ¹æ¹ý 1. page ¿µ¿ª °´Ã¼ÀÇ ¼Ó¼º°ªÀ¸·Î °ª Àü´Þ --%>
+	<%-- ë°©ë²• 1. page ì˜ì—­ ê°ì²´ì˜ ì†ì„±ê°’ìœ¼ë¡œ ê°’ ì „ë‹¬ --%>
 	<%pageContext.setAttribute("str2", "str2"); %>
 	
-	<%-- ¹æ¹ý 2. c:set ÅÂ±×·Î JSTL¿¡¼­ÀÇ º¯¼ö·Î º¯È¯ ÈÄ Á¢±ÙÀÌ °¡´ÉÇÏ´Ù (value¿¡ Ç¥Çö½ÄÀ¸·Î °ª Àü´Þ) --%>
+	<%-- ë°©ë²• 2. c:set íƒœê·¸ë¡œ JSTLì—ì„œì˜ ë³€ìˆ˜ë¡œ ë³€í™˜ í›„ ì ‘ê·¼ì´ ê°€ëŠ¥í•˜ë‹¤ (valueì— í‘œí˜„ì‹ìœ¼ë¡œ ê°’ ì „ë‹¬) --%>
 <%-- 	<c:set var="str2"  value="<%=str2 %>"/> --%>
 	
 	
-	<%--Ãâ·Â ¹æ¹ý 1 --%>
+	<%--ì¶œë ¥ ë°©ë²• 1 --%>
 	<h3>\${str2 } = ${str2 }</h3>
-	<%--Ãâ·Â ¹æ¹ý 2 <c:out>  --%>
+	<%--ì¶œë ¥ ë°©ë²• 2 <c:out>  --%>
 
 	<c:set var = "targetTag" value = "&lt;c:out&gt;"/>
 	<h3>
@@ -32,9 +32,9 @@
 	</h3>
 	
 	<hr>
-	<%-- °ª »èÁ¦ --%>
+	<%-- ê°’ ì‚­ì œ --%>
 	<c:remove var="str"/>
-	<h3>\${str }°ª »èÁ¦ ÈÄ = ${str }</h3>
-	<h3>\${empty str } empty ¿©ºÎ = ${empty str }</h3>
+	<h3>\${str }ê°’ ì‚­ì œ í›„ = ${str }</h3>
+	<h3>\${empty str } empty ì—¬ë¶€ = ${empty str }</h3>
 </body>
 </html>
