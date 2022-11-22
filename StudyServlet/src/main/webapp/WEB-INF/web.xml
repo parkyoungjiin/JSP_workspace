@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>StudyServlet</display-name>
+  
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+  </welcome-file-list>
+  
+  <servlet>
+  	<servlet-name>TestServlet</servlet-name> <!-- 매핑에 사용할 서블릿 이름(아무거나), 구별용임 -->
+	<servlet-class>test.TestMyServlet</servlet-class> <!-- 매핑에 사용될(=연결) 클래스명(.java제외) -->
+  </servlet>
+  
+  <!-- 서블릿 클래스와 요청 URL에 대한 연결작업(매핑) -->
+  <servlet-mapping>
+	<servlet-name>TestServlet</servlet-name>  
+	<url-pattern>/myServlet</url-pattern>  
+  </servlet-mapping>
+  
+  
+  <servlet>
+  <servlet-name>TestServlet2</servlet-name>
+  <servlet-class>test.TestMyServlet2</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>TestServlet2</servlet-name>
+  <url-pattern>/myServlet2</url-pattern>
+  </servlet-mapping>
+</web-app>
