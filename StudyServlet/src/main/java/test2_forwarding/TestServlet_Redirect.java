@@ -30,5 +30,13 @@ public class TestServlet_Redirect extends HttpServlet {
 		System.out.println("이름 : " + id);
 		System.out.println("나이 : " + age);
 		
+		
+		//1. test2_forwarding 파일 내에 있는 결과
+//		response.sendRedirect("test2_forwarding/test6_redirect_result.jsp");
+		
+		
+		//2. webapp에 있는 결과
+		response.sendRedirect("test6_redirect_result.jsp");
+		
 	}
 }
