@@ -107,6 +107,10 @@ public class JdbcUtil {
          e.printStackTrace();
       }
    }
+
+public static void commit(Connection con) {
+	
+}
    
 }
 

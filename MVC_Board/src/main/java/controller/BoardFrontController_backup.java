@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import action.Action;
 import action.BoardListAction;
 import action.BoardWriteProAction;
 import vo.ActionForward;
@@ -17,8 +16,8 @@ import vo.ActionForward;
 /**
  * Servlet implementation class BoardFrontController
  */
-@WebServlet("*.bo")
-public class BoardFrontController extends HttpServlet {
+//@WebServlet("*.bo")
+public class BoardFrontController_backup extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request, response);
 	}//get
@@ -64,54 +63,43 @@ public class BoardFrontController extends HttpServlet {
 		
 		
 		String command = request.getServletPath();
+		
 		System.out.println("서블릿 주소 : " + command);
-
 		
-		//공통으로 사용할 변수 선언
-		Action action = null; //XXXAction 클래스를 공통으로 관리할 Action 인터페이스 타입 선언
-		
-		ActionForward forward = null; // 포워딩 정보 저장할 변수
-		
-		
+		//추출된 서블릿 주소를 통해 if문을 통해 문자열 비교
 		
 		if(command.equals("/BoardWriteForm.bo")) {
 			System.out.println("글쓰기!");
-			 forward = new ActionForward();
-			 // ActionForward 객체 생성 후 이동할 경로와 포워딩 방식을 저장함.
-			 forward.setPath("board/qna_board_write.jsp");
-			 forward.setRedirect(false);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("board/qna_board_write.jsp");
+			dispatcher.forward(request, response);
 			
 			
 		}else if(command.equals("/BoardWritePro.bo")) {
 			System.out.println("Pro!");
-			
-			//글쓰기 비즈니스 로직 요청
-			//비즈니스 로직(DB) 처리할 Action 클래스의 execute 메서드 호출
-			action = new BoardWriteProAction();
-			forward = action.execute(request, response);
-			
-			
-		}else if(command.equals("/BoardList.bo")) {
-			System.out.println("List 폼!");
-			action = new BoardListAction();
-			
-			forward = action.execute(request, response);
-			
-			
-		}
-		
-		//---------------ActionForward 객체 내용에 따라 각각 다른 방식의 포워딩 작업----------------------
-		
-		//1. ActionForward 객체 Null 아닐경우
-		
-		if(forward != null) {
+			//BoardWriteProAction에서 객체 생성 후, execute 메서드를 통해 해당 페이지의
+			// 주소, 포워딩 방식을 Action Forward에 저장 
+			BoardWriteProAction action = new BoardWriteProAction();
+			ActionForward forward = action.execute(request, response);
+
+			//글 목록 표시를 위해 BoardList.bo 서블릿 주소 요청
+			// -> 새로운 요청이므로, 주소표시줄이 변경되야 한다 (Redirect)
 			if(forward.isRedirect()) {
 				response.sendRedirect(forward.getPath());
 			}else {
 				RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
 				dispatcher.forward(request, response);
 			}
+			
+		}else if(command.equals("/BoardList.bo")) {
+			System.out.println("List 폼!");
+			
+			BoardListAction listAction = new BoardListAction();
+			ActionForward foward = listAction.execute(request, response);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("board/qna_board_list.jsp");
+			dispatcher.forward(request, response);
 		}
 		
-	}//doProcess 끝
+	}
 }

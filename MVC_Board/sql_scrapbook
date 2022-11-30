@@ -14,3 +14,5 @@ CREATE TABLE board (
 			board_readcount INT DEFAULT 0,
 			board_date DATETIME
 		);
+		
+DESC board;
