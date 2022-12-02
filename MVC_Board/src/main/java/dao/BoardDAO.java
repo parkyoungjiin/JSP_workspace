@@ -1,7 +1,15 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.mysql.cj.protocol.Resultset;
+
+import db.JdbcUtil;
 import vo.BoardBean;
 
 // 실제 비즈니스 로직을 수행하는 BoardDAO 클래스 정의
@@ -35,9 +43,149 @@ public class BoardDAO {
 	// ----------------------------------------------------------------------------------
 
 	public int insertBoard(BoardBean board) {
-		// TODO Auto-generated method stub
-		return 0;
+		System.out.println("insertBoard 작업");
+		int insertCount = 0;
+		PreparedStatement pstmt = null, pstmt2 = null ;
+		ResultSet rs = null;
+		
+		try {
+			int board_num = 1; // 새 글 번호
+			String sql = "SELECT MAX(board_num) FROM board";
+			
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) { 
+				 //true -> 조회결과가 있을 경우 (= 게시물이 하나라도 존재할 경우)
+				 //존재하지 않을 경우 rs.next는 false , DB에서는 NULL이 표기된다.
+				board_num = rs.getInt(1) + 1;
+			}
+			System.out.println("새글 번호 :" + board_num);
+			
+			sql = "INSERT INTO board VALUES(?,?,?,?,?,?,?,?,?,?,?,now())";
+			
+			pstmt2 = con.prepareStatement(sql);
+//			 board_num       | int           | NO   | PRI | NULL    |       |
+//			 | board_name      | varchar(20)   | NO   |     | NULL    |       |
+//			 | board_pass      | varchar(16)   | NO   |     | NULL    |       |
+//			 | board_subject   | varchar(50)   | NO   |     | NULL    |       |
+//			 | board_content   | varchar(2000) | NO   |     | NULL    |       |
+//			 | board_file      | varchar(200)  | NO   |     | NULL    |       |
+//			 | board_real_file | varchar(200)  | NO   |     | NULL    |       |
+//			 | board_re_ref    | int           | NO   |     | NULL    |       |
+//			 | board_re_lev    | int           | NO   |     | NULL    |       |
+//			 | board_re_seq    | int           | NO   |     | NULL    |       |
+//			 | board_readcount | int           | YES  |     | 0       |       |
+//			 | board_date      | datetime      | YES  |     | NULL    |       |
+			pstmt2.setInt(1, board_num);
+			pstmt2.setString(2, board.getBoard_name());
+			pstmt2.setString(3, board.getBoard_pass());
+			pstmt2.setString(4, board.getBoard_subject());
+			pstmt2.setString(5, board.getBoard_content());
+			pstmt2.setString(6, board.getBoard_file());
+			pstmt2.setString(7, board.getBoard_real_file());
+			pstmt2.setInt(8, board_num); //참조 글 번호(글쓰기는 글번호와 동일하게 사용)
+			pstmt2.setInt(9, 0); //들여쓰기 레벨
+			pstmt2.setInt(10, 0); //순서 번호
+			pstmt2.setInt(11, 0); //조회 수
+			
+			insertCount = pstmt2.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+			JdbcUtil.close(pstmt2);
+			
+			//Connection 객체는 Service 클래스가 관리하므로 DAO에서 반환 금지.
+		}
+		
+		return insertCount;
 	}
+
+	public List<BoardBean> selectBoardList(String keyword, int startRow, int listLimit) {
+		System.out.println("selectBoardList (조회작업)");
+		List<BoardBean> selectList = null;
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT * FROM board WHERE board_subject LIKE ? ORDER BY board_re_ref DESC, board_re_seq ASC LIMIT ?,?";
+			pstmt = con.prepareStatement(sql);
+			
+				pstmt.setString(1, "%" + keyword + "%");
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, listLimit);
+				rs = pstmt.executeQuery();
+			
+			selectList = new ArrayList<BoardBean>();
+			
+			while(rs.next()) {
+				BoardBean board = new BoardBean();
+				board.setBoard_num(rs.getInt("board_num"));
+				board.setBoard_name(rs.getString("board_name"));
+				board.setBoard_pass(rs.getString("board_pass"));
+				board.setBoard_subject(rs.getString("board_subject"));
+				board.setBoard_content(rs.getString("board_content"));
+				board.setBoard_file(rs.getString("board_file"));
+				board.setBoard_real_file(rs.getString("board_real_file"));
+				board.setBoard_re_ref(rs.getInt("board_re_ref"));
+				board.setBoard_re_lev(rs.getInt("board_re_lev"));
+				board.setBoard_re_seq(rs.getInt("board_re_seq"));
+				board.setBoard_date(rs.getTimestamp("board_date"));
+				board.setBoard_readcount(rs.getInt("board_readcount"));
+				
+				selectList.add(board);
+				
+			}
+		} catch (SQLException e) {
+			System.out.println("BoardDAO - selectBoardList()");
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+			
+			//Connection 객체는 Service 클래스가 관리하므로 DAO에서 반환 금지.
+		}
+		
+		
+		
+		return selectList;
+	}//selectBoardList
+
+	public int selectBoardListCount(String keyword) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT COUNT(*) FROM board WHERE board_subject LIKE ?";
+
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, "%" + keyword + "%");
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("BoardDAO - selectBoardList()");
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+			
+			//Connection 객체는 Service 클래스가 관리하므로 DAO에서 반환 금지.
+		}
+		return listCount;
+	}
+	
+	
 	
 	
 }

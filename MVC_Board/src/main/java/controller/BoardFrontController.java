@@ -86,13 +86,14 @@ public class BoardFrontController extends HttpServlet {
 			System.out.println("Pro!");
 			
 			//글쓰기 비즈니스 로직 요청
-			//비즈니스 로직(DB) 처리할 Action 클래스의 execute 메서드 호출
+			//비즈니스 로직(DB) 처리할 Action 클 래스의 execute 메서드 호출
 			action = new BoardWriteProAction();
 			forward = action.execute(request, response);
 			
 			
 		}else if(command.equals("/BoardList.bo")) {
 			System.out.println("List 폼!");
+			
 			action = new BoardListAction();
 			
 			forward = action.execute(request, response);

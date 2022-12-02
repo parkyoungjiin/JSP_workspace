@@ -69,14 +69,7 @@ public class JdbcUtil {
       return con;
    }
    
-   public static void rollback(Connection con) {
-      try {
-         con.rollback();
-      } catch (SQLException e) {
-         e.printStackTrace();
-      }
-   }
-   
+      
    // 데이터베이스 자원 반환을 공통으로 수행할 close() 메서드 정의
    // => 파라미터 : Connection 타입(con) 또는 PreparedStatement 타입(pstmt) 또는
    //               ResultSet 타입(rs)
@@ -108,9 +101,23 @@ public class JdbcUtil {
       }
    }
 
-public static void commit(Connection con) {
+	// 데이터베이스 작업에 대한 Commit, Rollback 작업을 수행할 메서드 정의
+	// => 파라미터 : Connection 객체(con)
+	public static void commit(Connection con) {
+		try {
+			con.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
-}
+	public static void rollback(Connection con) {
+		try {
+			con.rollback();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
    
 }
 

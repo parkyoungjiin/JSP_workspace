@@ -16,3 +16,5 @@ CREATE TABLE board (
 		);
 		
 DESC board;
+
+SELECT MAX(board_num) FROM board;

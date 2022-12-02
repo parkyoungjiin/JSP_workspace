@@ -10,3 +10,10 @@ article h1, h3 {
 	text-align: center;
 }
 
+/* 테이블 내 데이터 좌측 정렬(좌측 여백10px) */
+.td.left{
+	text-align: center;
+	padding-left: 10px;
+	
+}
+

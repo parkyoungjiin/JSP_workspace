@@ -25,6 +25,7 @@ public class BoardWriteProAction implements Action {
 		
 		
 		
+		
 		try {
 			String uploadPath = "upload"; // 업로드 가상 디렉토리(이클립스가 관리)
 			String realPath = request.getServletContext().getRealPath(uploadPath);// 업로드 실제 디렉토리(톰캣)
@@ -65,8 +66,11 @@ public class BoardWriteProAction implements Action {
 			// 성공, 실패에 따른 결과
 			if(!isWriteSuccess) { // 실패 시
 				//웹 브라우저로 HTML 태그 등을 내보내기(출력) 위한 작업 수행
+				//setContentType을 통해 HTML 형식에 대한 문서 타입을 설정
 				response.setContentType("text/html; charset=UTF-8");
 				
+				//출력스트림으로 사용할 객체 PrintWriter 사용
+				// response객체의 getWriter 메서드 사용
 				PrintWriter out = response.getWriter();
 				
 				out.println("<script>");		
