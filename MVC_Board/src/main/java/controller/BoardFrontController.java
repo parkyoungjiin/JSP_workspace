@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.BoardDetailAction;
 import action.BoardListAction;
 import action.BoardWriteProAction;
 import vo.ActionForward;
@@ -99,7 +100,13 @@ public class BoardFrontController extends HttpServlet {
 			forward = action.execute(request, response);
 			
 			
+		}else if(command.equals("/BoardDetail.bo")) {
+			action = new BoardDetailAction();
+			//ActionForward 객체에 action 작업을 통해 포워딩 정보를 저장.
+			forward = action.execute(request, response);
+					
 		}
+			
 		
 		//---------------ActionForward 객체 내용에 따라 각각 다른 방식의 포워딩 작업----------------------
 		

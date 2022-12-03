@@ -32,7 +32,7 @@ public class BoardListService {
 		return boardList;
 	}
 
-	public int getBoardListCount(String keyword) {
+	public int getBoardListCount(String keyword) { // 페이징 리스트 개수
 		System.out.println("getBoardListCount 메서드");
 		int listCount = 0;
 		

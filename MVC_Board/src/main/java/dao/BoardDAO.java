@@ -183,7 +183,40 @@ public class BoardDAO {
 			//Connection 객체는 Service 클래스가 관리하므로 DAO에서 반환 금지.
 		}
 		return listCount;
+	}//selectBoardListCount
+
+	public BoardBean selectBoard(int board_num) {
+		BoardBean board = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT board_subject, board_name, board_date, board_file, board_readcount FROM board WHERE board_num = ? ";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, board_num);
+			
+			rs = pstmt.executeQuery();
+			//boardbean에 저장
+			//빈은 있을 때 마다 생성. 리스트는 하나.
+			
+			if(rs.next()) {
+				board = new BoardBean();
+				board.setBoard_name(rs.getString("board_name"));
+				board.setBoard_subject(rs.getString("board_subject"));
+				board.setBoard_date(rs.getTimestamp("board_date"));
+				board.setBoard_file(rs.getString("board_file"));
+				board.setBoard_readcount(rs.getInt("board_readcount"));
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 구문 오류 - selectBoard");
+			e.printStackTrace();
+		}
+		
+		
+		return board;
 	}
+	
+	//----------------------------상세정보 DAO 작업--------------------------------------
+	
 	
 	
 	

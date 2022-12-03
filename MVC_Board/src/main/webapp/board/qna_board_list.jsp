@@ -73,27 +73,33 @@
 			<td width="150px">날짜</td>
 			<td width="100px">조회수</td>
 		</tr>
+		<!-- 리스트 배포 -->
 		<c:forEach var="board" items="${boardList }">
-		<tr>
-			<td>${board.board_num }</td>
-			<c:choose>
-				<c:when test = "${empty param.pageNum }" >
-					<c:set var = "pageNum" value="1"/>
-				</c:when>
-				<c:otherwise>
-					<c:set var = "pageNum" value="${param.pageNum }"/>
-				</c:otherwise>
-			</c:choose>
+			<tr>
+				<td>${board.board_num }</td>
+				<!-- pageNum 처리 -->
+				<c:choose>
+				
+					<c:when test="${empty param.pageNum }">
+						<c:set var="pageNum" value="1"/>
+					</c:when>
+					<c:otherwise>
+						<c:set var ="pageNum" value="${param.pageNum }"></c:set>					
+					</c:otherwise>
+				</c:choose>
+				<!-- 주제를 클릭했을 때, detail로 이동할 수 있게 하이퍼링크
+					이 때, pageNum, 게시판번호(board_num)이 넘어가야함.
+				 -->
+				<td id = "subject">
+				<a href="BoardDetail.bo?board_num=${board.board_num }&pageNum=${pageNum}">${board.board_subject }</a>
+				</td>
+				<td>${board.board_name }</td>
+				<td><fmt:formatDate value="${board.board_date }" pattern="yyyy-MM-dd HH:mm"/> </td>
+				<td>${board.board_readcount }</td>
 			
-			<td id="subject">
-				<a href="BoardDetail.bo?board_num=${board.board_num }&pageNum=${pageNum }">
-					${board.board_subject }
-				</a>
-			</td>
-			<td>${board.board_name }</td>
-			<td><fmt:formatDate value="${board.board_date }" pattern="yyyy-MM-dd HH:mm"/></td>
-			<td>${board.board_readcount }</td>
-		</tr>
+			</tr>
+		
+		
 		</c:forEach>
 	</table>
 	</section>

@@ -72,6 +72,7 @@
 				<td></td>
 			</tr>
 			</table>
+			
 		</section>
 		<section id="articleContentArea">
 			

@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     
 <%
 session.setAttribute("testValue", "Session Value");
@@ -10,7 +10,7 @@ session.setAttribute("testValue", "Session Value");
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
@@ -19,15 +19,15 @@ session.setAttribute("testValue", "Session Value");
 	
 		<table border ="1">
 			<tr>
-				<td>ÀÌ¸§</td>
+				<td>ì´ë¦„</td>
 				<td><input type="text" name = "name"></td>
 			</tr>
 			<tr>
-				<td>³ªÀÌ</td>
+				<td>ë‚˜ì´</td>
 				<td><input type="text" name = "age"></td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" value = "È®ÀÎ"></td>
+				<td colspan="2"><input type="submit" value = "í™•ì¸"></td>
 			</tr>
 		
 		

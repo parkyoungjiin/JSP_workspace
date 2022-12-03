@@ -21,10 +21,11 @@ public class BoardListAction implements Action{
 		
 		
 		//----------------페이징 처리--------------------
+		//한 페이지당 개수 10개로 제한
 		int listLimit = 10;
-
+		//기본 페이지 번호 1
 		int pageNum = 1;
-
+		//pageNum이 널이 아니라면 파라미터 값을 정수형으로 변환(getparameter을 하면 String으로 넘어오기 때문이다.)
 		if(request.getParameter("pageNum") != null){
 			pageNum = Integer.parseInt(request.getParameter("pageNum"));
 		}
@@ -72,6 +73,7 @@ public class BoardListAction implements Action{
 		}
 		PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage);
 		
+		//request 객체에 boardList, pageInfo에 대한 정보를 저장
 		request.setAttribute("boardList", boardList);
 		request.setAttribute("pageInfo", pageInfo);
 		
