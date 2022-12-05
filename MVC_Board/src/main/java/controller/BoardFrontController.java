@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.BoardDeleteProAction;
 import action.BoardDetailAction;
 import action.BoardListAction;
+import action.BoardModifyAction;
 import action.BoardWriteProAction;
 import vo.ActionForward;
 
@@ -105,6 +108,20 @@ public class BoardFrontController extends HttpServlet {
 			//ActionForward 객체에 action 작업을 통해 포워딩 정보를 저장.
 			forward = action.execute(request, response);
 					
+		}else if(command.equals("/BoardDeleteForm.bo")) {
+			forward = new ActionForward();
+			forward.setPath("board/qna_board_delete.jsp");
+			
+		}else if(command.equals("/BoardDeleteProForm.bo")) {
+			action = new BoardDeleteProAction();
+			forward = action.execute(request, response);
+			
+		}else if(command.equals("/BoardModifyForm.bo")) {
+			action = new BoardModifyAction();
+			forward = action.execute(request, response);
+		}else if(command.equals("/BoardModifyPro.bo")) {
+			action = new BoardModifyProAction();
+			forward = action.execute(request, response);
 		}
 			
 		

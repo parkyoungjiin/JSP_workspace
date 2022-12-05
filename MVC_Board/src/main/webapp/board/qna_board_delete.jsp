@@ -30,7 +30,7 @@
 	<!-- 게시판 글 삭제 -->
 	<h2>게시판 글 삭제</h2>
 	<section id="passForm">
-		<form action="" name="deleteForm" method="post">
+		<form action="BoardDeleteProForm.bo?board_num=${param.board_num }&pageNum=${param.pageNum}" name="deleteForm" method="post">
 			<table>
 				<tr>
 					<td><label>글 비밀번호</label></td>
