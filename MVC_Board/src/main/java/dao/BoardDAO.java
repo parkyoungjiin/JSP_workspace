@@ -277,23 +277,123 @@ public class BoardDAO {
 	
 	
 //----------------------------게시물 삭제 작업---------------------------------
-	public int BoardDelete(int board_num, String board_pass) {
+	public int BoardDelete(int board_num) {
 		int deleteCount = 0;
 		
 		PreparedStatement pstmt = null;
-		String sql = "DELETE FROM board WHERE board_num = ? AND board_pass = ?";
+		String sql = "DELETE FROM board WHERE board_num = ?";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, board_num);
-			pstmt.setString(2, board_pass);
 			deleteCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("SQL 구문 오류 - Delete 작업");
 			e.printStackTrace();
+		}finally {
+			// DB 자원 반환
+			JdbcUtil.close(pstmt);
 		}
 		
 		return deleteCount;
 	}
+
+//---------------------게시물 수정 작업-------------------------------
+	public int updateBoard(BoardBean board) {
+		int updateCount = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = "UPDATE board "
+				+ "SET "
+					+ "board_subject = ?,"
+					+ "board_content = ? ";
+		
+		//단, 파일명(board_file)이 널이 아닐 경우에만 파일명도 수정
+		//즉, 파일명을 수정하는 SET 절을 문장에 추가 결합.
+			if(board.getBoard_file() != null) {
+				sql += ", board_file = ?"
+						+ " ,board_real_file = ?";
+			}
+		
+		sql 	+= "WHERE "
+					+ "board_num = ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, board.getBoard_subject());
+			pstmt.setString(2, board.getBoard_content());
+			
+			//단, 파일명이 null이 아닌 경우에만 파일명 파라미터를 교체
+			if(board.getBoard_file() != null) {
+				pstmt.setString(3, board.getBoard_file() );
+				pstmt.setString(4, board.getBoard_real_file() );
+				pstmt.setInt(5, board.getBoard_num());
+			}else { // null이 아닐 때 글번호 파라미터 번호는 5번, 아니면 3번
+				pstmt.setInt(3, board.getBoard_num());
+				
+			}
+			updateCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 구문 오류 - updateBoard");
+			e.printStackTrace();
+		}finally {
+			// DB 자원 반환
+			JdbcUtil.close(pstmt);
+		}
+		
+		
+		
+		
+		return updateCount;
+	}
+//----------------답글 등록 작업-----------------------
+	public int insertReplyBoard(BoardBean board) {
+		int insertCount = 0;
+		PreparedStatement pstmt = null, pstmt2 = null ;
+		ResultSet rs = null;
+		
+		try {
+			int board_num = 1; // 새 글 번호
+			String sql = "SELECT MAX(board_num) FROM board";
+			
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) { 
+				 //true -> 조회결과가 있을 경우 (= 게시물이 하나라도 존재할 경우)
+				 //존재하지 않을 경우 rs.next는 false , DB에서는 NULL이 표기된다.
+				board_num = rs.getInt(1) + 1;
+			}
+			System.out.println("새글 번호 :" + board_num);
+			
+			sql = "INSERT INTO board VALUES(?,?,?,?,?,?,?,?,?,?,?,now())";
+			
+			pstmt2 = con.prepareStatement(sql);
+			pstmt2.setInt(1, board_num);
+			pstmt2.setString(2, board.getBoard_name());
+			pstmt2.setString(3, board.getBoard_pass());
+			pstmt2.setString(4, board.getBoard_subject());
+			pstmt2.setString(5, board.getBoard_content());
+			pstmt2.setString(6, board.getBoard_file());
+			pstmt2.setString(7, board.getBoard_real_file());
+			pstmt2.setInt(8, board_num); //참조 글 번호(글쓰기는 글번호와 동일하게 사용)
+			pstmt2.setInt(9, 0); //들여쓰기 레벨
+			pstmt2.setInt(10, 0); //순서 번호
+			pstmt2.setInt(11, 0); //조회 수
+			
+			insertCount = pstmt2.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 구문 오류 - insertReplyBoard");
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+			JdbcUtil.close(pstmt2);
+			
+			//Connection 객체는 Service 클래스가 관리하므로 DAO에서 반환 금지.
+		}
+		
+		return insertCount;
+	}
+	
 	
 	
 	

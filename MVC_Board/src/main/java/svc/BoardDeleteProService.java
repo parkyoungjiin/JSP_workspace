@@ -7,7 +7,23 @@ import db.JdbcUtil;
 
 public class BoardDeleteProService {
 
-	public int getDelete(int board_num, String board_pass) {
+
+	public boolean isBoardWriter(int board_num, String board_pass) {
+		boolean isWriter = false;
+		Connection con = JdbcUtil.getConnection();
+		
+		BoardDAO dao = BoardDAO.getInstance();
+		
+		dao.setConnection(con);
+		
+		isWriter = dao.isBoardWriter(board_num, board_pass);
+		
+		
+		return isWriter;
+	}//isBoardWriter 메서드 끝
+	
+	
+	public int getDelete(int board_num) {
 		System.out.println("BoardDeleteProService - getDelete");
 		int deleteCount = 0;		
 		//공통작업 (DAO)
@@ -20,8 +36,8 @@ public class BoardDeleteProService {
 		//3. 커넥션 저장
 		dao.setConnection(con);
 		
-				
-		deleteCount = dao.BoardDelete(board_num, board_pass);
+		
+		deleteCount = dao.BoardDelete(board_num);
 		
 		if(deleteCount > 0) { // true일 때 (작업 성공 시)
 			JdbcUtil.commit(con);
@@ -31,10 +47,12 @@ public class BoardDeleteProService {
 		
 		//4. 커넥션 반환
 		JdbcUtil.close(con);
-				
+		
 		
 		
 		return deleteCount;
-	}
+	}//getDelete 메서드 끝
+	
+	
 
 }

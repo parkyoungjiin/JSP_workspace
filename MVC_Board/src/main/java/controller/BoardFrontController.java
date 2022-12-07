@@ -15,6 +15,8 @@ import action.BoardDeleteProAction;
 import action.BoardDetailAction;
 import action.BoardListAction;
 import action.BoardModifyAction;
+import action.BoardModifyProAction;
+import action.BoardReplyFormAction;
 import action.BoardWriteProAction;
 import vo.ActionForward;
 
@@ -119,8 +121,17 @@ public class BoardFrontController extends HttpServlet {
 		}else if(command.equals("/BoardModifyForm.bo")) {
 			action = new BoardModifyAction();
 			forward = action.execute(request, response);
+			
 		}else if(command.equals("/BoardModifyPro.bo")) {
 			action = new BoardModifyProAction();
+			forward = action.execute(request, response);
+			
+		}else if(command.equals("/BoardReplyForm.bo")) {
+			action = new BoardReplyFormAction();
+			forward = action.execute(request, response);
+		
+		}else if(command.equals("/BoardReplyPro.bo")) {
+			action = new BoardReplyProAction();
 			forward = action.execute(request, response);
 		}
 			

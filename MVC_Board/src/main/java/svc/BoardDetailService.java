@@ -11,7 +11,7 @@ import vo.BoardBean;
 
 public class BoardDetailService {
 
-	public BoardBean getDetialList(int board_num) {
+	public BoardBean getDetialList(int board_num, boolean isUpdateReadCount) {
 		BoardBean board = null;
 		//서비스 클래스의 공통작업
 		//1. 커넥션 받기
@@ -24,10 +24,10 @@ public class BoardDetailService {
 		//먼저 조회 작업을 수행. 	
 		board = dao.selectBoard(board_num);
 		
-		//리턴받은 boardBean 객체가 Null이 아닐경우
+		//리턴받은 boardBean 객체가 Null이 아니고, isUpdateReadCount가 true일 경우
 		// updateReadCOunt() 메서드를 통해 조회수 증가 작업 수행하고, Commit 작업 수행 + 수동으로 조회수 1 + 작업.
 		
-		if(board != null) {
+		if(board != null && isUpdateReadCount) {
 			int updateCount = dao.updateReadCount(board_num);
 			if(updateCount > 0) {
 				JdbcUtil.commit(con);
