@@ -17,6 +17,7 @@ import action.BoardListAction;
 import action.BoardModifyAction;
 import action.BoardModifyProAction;
 import action.BoardReplyFormAction;
+import action.BoardReplyProAction;
 import action.BoardWriteProAction;
 import vo.ActionForward;
 
@@ -118,10 +119,11 @@ public class BoardFrontController extends HttpServlet {
 			action = new BoardDeleteProAction();
 			forward = action.execute(request, response);
 			
+		// 수정 버튼 눌렀을 때, 해당 게시물 값의 데이터를 가져옴.(폼으로 이동)
 		}else if(command.equals("/BoardModifyForm.bo")) {
-			action = new BoardModifyAction();
+			action = new BoardModifyAction(); 
 			forward = action.execute(request, response);
-			
+		// 수정 폼에서 수정한 값들을 파라미터로 넘기고, 이를 DB에 수정하는 작업
 		}else if(command.equals("/BoardModifyPro.bo")) {
 			action = new BoardModifyProAction();
 			forward = action.execute(request, response);

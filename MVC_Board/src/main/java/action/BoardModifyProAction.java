@@ -18,25 +18,16 @@ public class BoardModifyProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-		
+		System.out.println("BoardModifyProAction - DB 수정 작업");
 		ActionForward forward = null;
 		String realPath = "";
 		String deleteFileName = "";
-
+		
 		try {
-			String uploadPath = "upload"; // 업로드 가상 디렉토리(이클립스가 관리)
-			realPath = request.getServletContext().getRealPath(uploadPath);// 업로드 실제 디렉토리(톰캣)
-			System.out.println("실제 업로드 경로 : " + realPath);
-			File f = new File(realPath);
-			//디렉토리가 존재하지 않을 경우 디렉토리 생성
-			//단, file 객체가 생성되더라도 해당 디렉토리 또는 파일을 직접 생성하지 않음.
-			if(!f.exists()) {//
-				//
-				f.mkdir(); 
-			}
-			int filesize = 1024 * 1024 * 10;
-			
-//	-----------파일 업로드 처리-----------------
+			// 파일 변경을 할 수 있도록 작업
+			String uploadPath = "upload";
+			realPath = request.getServletContext().getRealPath(uploadPath);
+			int filesize = 10 * 1024 * 1024;
 			MultipartRequest multi = new MultipartRequest(
 					request, 
 					realPath,
@@ -44,82 +35,81 @@ public class BoardModifyProAction implements Action {
 					"UTF-8",
 					new DefaultFileRenamePolicy()
 					);
+		// 수정한 값들을 저장하여 넘길 수 있도록 BoardBean 작업
+		BoardBean board = new BoardBean();
+		
+		board.setBoard_num(Integer.parseInt(multi.getParameter("board_num")));
+		board.setBoard_pass(multi.getParameter("board_pass"));
+		board.setBoard_subject(multi.getParameter("board_subject"));
+		board.setBoard_content(multi.getParameter("board_content"));
+		board.setBoard_file(multi.getFilesystemName("board_file"));
+		board.setBoard_real_file(multi.getOriginalFileName("board_file"));
+		
+		System.out.println(board);
+		
+		// 비밀번호 일치 여부 판별 필요
+		BoardModifyProService service = new BoardModifyProService();
+		// 비밀번호 판별 여부 확인
+		boolean isBoardWriter = service.getBoardWriter(board);
+		
+		
+		if(isBoardWriter) {//비밀번호 일치 시
+//			일치할 경우 수정 작업을 시작. 
+			BoardModifyProService service2 = new BoardModifyProService();
 			
-			BoardBean board = new BoardBean();
-			board.setBoard_num(Integer.parseInt(multi.getParameter("board_num")));
-			board.setBoard_name(multi.getParameter("board_name"));
-			board.setBoard_pass(multi.getParameter("board_pass"));
-			board.setBoard_subject(multi.getParameter("board_subject"));
-			board.setBoard_content(multi.getParameter("board_content"));
-			//만약 수정할 파일을 선택하지 않았을 경우 파일명은 null값이 저장된다. ( 알아둘 것)
-			board.setBoard_file(multi.getOriginalFileName("board_file"));
-			board.setBoard_real_file(multi.getFilesystemName("board_file"));
-			System.out.println(board);
+			Boolean isModifySuccess = service2.getModify(board); //수정 메서드 : 
 			
-			//수정 작업 결과에 따라 삭제할 파일이 달라지므로
-			//파일명을 저장할 변수를 선언 (try 밖에 선언함)
-			
-			
-			BoardModifyProService service = new BoardModifyProService();
-			
-			//패스워드 일치 여부 확인
-			boolean isBoardWriter = service.isBoardWriter(board);
-			//일치한 지 아닌지에 따라 다르게 처리
-			if(!isBoardWriter) { // 수정 권한 없음 (비밀번호 불일치)
+			if(isModifySuccess) {//비밀번호 일치 + 수정 작업 완료 시
+				//포워딩 정보 저장하여 Detail로 이동.
+				forward = new ActionForward();
+				forward.setPath("BoardDetail.bo?board_num=" + board.getBoard_num() +"&pageNum=" + multi.getParameter("pageNum"));
+				forward.setRedirect(false);
+				
+				
+				//기존 파일 삭제 (파일 변경을 했을 때, 기존에 있는 리얼 파일은 삭제되고 새로운 파일이 올라가야 함.)
+				// -> board_real_file의 경우 qna_board_modify에서 hidden으로 파라미터로 넘김.
+				deleteFileName = multi.getParameter("board_real_file");
+				
+				
+			}else{ //비밀번호 일치 + 수정 작업 실패
 				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter out = response.getWriter();
 				out.println("<script>");
-				out.println("alert('수정 권한이 없습니다!')");
+				out.println("alert('수정에 실패했습니다!')");
 				out.println("history.back()");
 				out.println("</script>");
-				
-				//삭제할 파일명을 새 파일명의 실제 파일명으로 지정
+//				deleteFileName = multi.getFilesystemName("board_file");
 				deleteFileName = board.getBoard_real_file();
-				
-			} else { // 수정권한 있음(비밀번호 일치)
-				//있을때만 수정할 수 있도록 작업
-				boolean isModifySuccess = service.modifyBoard(board);
-				
-				if(!isModifySuccess) { // 수정 실패 시(비밀번호는 일치한데, 작업 실패 시) 
-					response.setContentType("text/html; charset=UTF-8");
-					PrintWriter out = response.getWriter();
-					out.println("<script>");
-					out.println("alert('수정 실패!')");
-					out.println("history.back()");
-					out.println("</script>");
-					
-					//삭제할 파일명을 새 파일명의 실제 파일명으로 지정
-					deleteFileName = board.getBoard_real_file();
-				} else { // 수정 성공 시 ( detail.bo로 가야되며, 게시글번호와 페이지 번호를 같이 넘겨야 함)
-					forward = new ActionForward();
-					forward.setPath("BoardDetail.bo?board_num=" + board.getBoard_num() + "&pageNum=" + multi.getParameter("pageNum"));
-					forward.setRedirect(true);
-					
-					//삭제할 파일명을 기존 파일의 실제 파일명으로 지정 
-					//(modify form에서 hidden 속성으로 전달받은 기존 파일명에 대한 파라미터를 사용)
-					//단, 수정할 새 파일을 선택했을 경우에만 파일명 지정
-					if(board.getBoard_file() !=null) {
-						deleteFileName = multi.getParameter("board_real_file");
 
-					}
-					
-					
-					
-					
-				}
 			}
-		}catch (IOException e) {
+			
+		}else {//비밀번호 불일치 시 자바스크립트로 처리.
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('수정 권한이 없습니다!')");
+			out.println("history.back()");
+			out.println("</script>");
+			
+			//파일과 같이 변경할 때 비밀번호를 틀렸을 때도 파일이 upload 경로로 자동으로 올라간다.
+			// 이를 삭제하기 위해 삭제할 파일명을 설정함. 
+			// 이 떄 파일명을 새 파일명의 실제 파일명(real_file)으로 지정
+			// 업로드되면 중복이 있을 때 뒤에 숫자가 붙어서 올라가는데
+			// 만약 실패했을 경우 숫자가 붙은 파일을 삭제해야 하기에 real_file을 삭제한다.
+			
+			deleteFileName = board.getBoard_real_file();
+//			deleteFileName = multi.getFilesystemName("board_file");
+
+		}
+		
+		
+		} catch (IOException e) {
 			e.printStackTrace();
 		}finally {
-			//예외 발생하더라도 파일 삭제는 무조건 수행하도록 finally 블록에서 작성
-			//1. File 객체 생성(파라미터 : 디렉토리명, 파일명 전달)
 			File f = new File(realPath, deleteFileName);
-			
-			//해당 디렉토리 및 파일 존재 여부 판별
 			if(f.exists()) {
 				f.delete();
 			}
-			
 		}
 		
 		

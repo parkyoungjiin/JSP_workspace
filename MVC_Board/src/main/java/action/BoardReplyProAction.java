@@ -1,4 +1,4 @@
-package controller;
+package action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import action.Action;
 import svc.BoardReplyProService;
 import svc.BoardWriteProService;
 import vo.ActionForward;
@@ -46,7 +45,7 @@ public class BoardReplyProAction implements Action {
 			System.out.println(board);
 			
 			//만약 파일명이 null 일 경우 널스트링으로 교체 (답글은 파일업로드가 선택사항 이기에)
-			if(board.getBoard_file() ==null) {
+			if(board.getBoard_file() == null) {
 				board.setBoard_file("");
 				board.setBoard_real_file("");
 			}
@@ -82,13 +81,10 @@ public class BoardReplyProAction implements Action {
 				forward.setRedirect(true);
 			}
 			
-			
-			
-//			System.out.println(vo.toString());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return forward;
 	}
 

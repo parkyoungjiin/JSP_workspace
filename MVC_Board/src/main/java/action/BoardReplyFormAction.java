@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import svc.BoardReplyFormService;
 import vo.ActionForward;
 import vo.BoardBean;
-
+//폼 액션은 이동만.
 public class BoardReplyFormAction implements Action {
 
 	@Override

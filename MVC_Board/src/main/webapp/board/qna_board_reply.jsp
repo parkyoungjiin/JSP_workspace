@@ -50,8 +50,6 @@
 		<input type="hidden" name="board_re_lev" value ="${board.board_re_lev}" >
 		<input type="hidden" name="board_re_seq" value ="${board.board_re_seq}" >
 		
-		
-		
 			<table>
 				<tr>
 					<td class="td_left"><label for="board_name">글쓴이</label></td>
@@ -75,6 +73,7 @@
 					<td class="td_right"><input type="file" name ="board_file"></td>
 				</tr>
 			</table>
+			
 			<section id="commandCell">
 				<input type="submit" value="답글등록">&nbsp;&nbsp;
 				<input type="reset" value="다시쓰기">&nbsp;&nbsp;
