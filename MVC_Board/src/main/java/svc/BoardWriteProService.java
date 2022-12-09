@@ -21,7 +21,7 @@ public class BoardWriteProService {
 		//DAO 객체 생성하여 , 인스턴스를 받고 커넥션을 전달
 		
 		BoardDAO dao = BoardDAO.getInstance();
-		dao.setConnection(con);
+		dao.setConnection(con);	
 		
 		int insertCount = dao.insertBoard(board);
 		

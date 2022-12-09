@@ -39,7 +39,10 @@
 		text-align: center;
 	}
 </style>
+<link href="css/default.css" rel ="stylesheet" type="text/css">
+
 </head>
+	
 <body>
 	<section>
 		<jsp:include page="/inc/top.jsp"></jsp:include>

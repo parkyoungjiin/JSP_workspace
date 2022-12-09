@@ -25,8 +25,14 @@
 	}
 	
 </style>
+<link href="css/default.css" rel ="stylesheet" type="text/css">
+
 </head>
 <body>
+	<header>
+		<!-- Login, Join 표시 영역 -->
+		<jsp:include page="../inc/top.jsp"></jsp:include>
+	</header>
 	<!-- 게시판 글 삭제 -->
 	<h2>게시판 글 삭제</h2>
 	<section id="passForm">

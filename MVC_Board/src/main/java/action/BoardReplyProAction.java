@@ -36,12 +36,17 @@ public class BoardReplyProAction implements Action {
 			
 			//전달받은 파라미터 데이터를 BoardBean 클래스 인스턴스 생성 후 저장
 			BoardBean board = new BoardBean();
+			board.setBoard_num(Integer.parseInt(multi.getParameter("board_num")));
 			board.setBoard_name(multi.getParameter("board_name"));
 			board.setBoard_pass(multi.getParameter("board_pass"));
 			board.setBoard_subject(multi.getParameter("board_subject"));
 			board.setBoard_content(multi.getParameter("board_content"));
 			board.setBoard_file(multi.getOriginalFileName("board_file"));
 			board.setBoard_real_file(multi.getFilesystemName("board_file"));
+			//입력받지 않고 hidden 속성으로 전달한 값도 저장해야 함.
+			board.setBoard_re_ref(Integer.parseInt(multi.getParameter("board_re_ref")));
+			board.setBoard_re_lev(Integer.parseInt(multi.getParameter("board_re_lev")));
+			board.setBoard_re_seq(Integer.parseInt(multi.getParameter("board_re_seq")));
 			System.out.println(board);
 			
 			//만약 파일명이 null 일 경우 널스트링으로 교체 (답글은 파일업로드가 선택사항 이기에)

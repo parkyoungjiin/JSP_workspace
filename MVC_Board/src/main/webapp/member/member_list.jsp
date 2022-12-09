@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MVC 게시판</title>
+<title>회원목록</title>
 <style type="text/css">
 	#listForm {
 		width: 1024px;
@@ -70,46 +70,23 @@
 	</header>
 	<!-- 게시판 리스트 -->
 	<section id="listForm">
-	<h2>게시판 글 목록</h2>
+	<h2>회원 목록</h2>
 	<table>
 		<tr id="tr_top">
-			<td width="100px">번호</td>
-			<td>제목</td>
-			<td width="150px">작성자</td>
-			<td width="150px">날짜</td>
-			<td width="100px">조회수</td>
+			<td width="100px">이름</td>
+			<td width="100px">아이디</td>
+			<td width="150px">이메일</td>
+			<td width="50px">성별</td>
+			<td width="100px">날짜</td>
 		</tr>
 		<!-- 리스트 배포 -->
-		<c:forEach var="board" items="${boardList }">
+		<c:forEach var="member" items="${memberList }">
 			<tr>
-				<td>${board.board_num }</td>
-				<!-- pageNum 처리 -->
-				<c:choose>
-				
-					<c:when test="${empty param.pageNum }">
-						<c:set var="pageNum" value="1"/>
-					</c:when>
-					<c:otherwise>
-						<c:set var ="pageNum" value="${param.pageNum }"></c:set>					
-					</c:otherwise>
-				</c:choose>
-				<!-- 주제를 클릭했을 때, detail로 이동할 수 있게 하이퍼링크
-					이 때, pageNum, 게시판번호(board_num)이 넘어가야함.
-				 -->
-				 
-				 <%-- 답글 관련 처리 --%>
-				<td id = "subject">
-				<c:if test="${board.board_re_lev > 0 }">
-					<c:forEach var = "i" begin="1" end="${board.board_re_lev }">
-						&nbsp;&nbsp;					
-					</c:forEach>
-						<img src="images/re.gif">
-				</c:if>
-						<a href="BoardDetail.bo?board_num=${board.board_num }&pageNum=${pageNum}">${board.board_subject }</a>
-				</td>
-				<td>${board.board_name }</td>
-				<td><fmt:formatDate value="${board.board_date }" pattern="yyyy-MM-dd HH:mm"/> </td>
-				<td>${board.board_readcount }</td>
+				<td>${member.name }</td>
+				<td>${member.id }</td>
+				<td>${member.email }</td>
+				<td>${member.gender }</td>
+				<td>${member.date }</td>
 			
 			</tr>
 		

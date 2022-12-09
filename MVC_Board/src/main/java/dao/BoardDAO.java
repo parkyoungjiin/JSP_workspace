@@ -208,6 +208,9 @@ public class BoardDAO {
 				board.setBoard_date(rs.getTimestamp("board_date"));
 				board.setBoard_file(rs.getString("board_file"));
 				board.setBoard_real_file(rs.getString("board_real_file"));
+				board.setBoard_re_ref(rs.getInt("board_re_ref"));
+				board.setBoard_re_lev(rs.getInt("board_re_lev"));
+				board.setBoard_re_seq(rs.getInt("board_re_seq"));
 				board.setBoard_readcount(rs.getInt("board_readcount"));
 			}
 		} catch (SQLException e) {
@@ -362,8 +365,32 @@ public class BoardDAO {
 				 //존재하지 않을 경우 rs.next는 false , DB에서는 NULL이 표기된다.
 				board_num = rs.getInt(1) + 1;
 			}
-			System.out.println("새글 번호 :" + board_num);
+//			System.out.println("새글 번호 :" + board_num);
 			
+			int ref = board.getBoard_re_ref();
+			int lev = board.getBoard_re_lev();
+			int seq = board.getBoard_re_seq();
+			
+			// UPDATE 구문 ( 답글파트 ) 
+			// 1. 원본 글 = 참조 글 번호
+			// 2. 원본 글 순서번호(seq)보다 큰 레코드들 
+			// 순서 번호(seq)를 + 1씩 증가
+			sql = "UPDATE board SET board_re_seq = board_re_seq + 1 "
+					+ "WHERE board_re_ref = ? AND board_re_seq > ? ";
+			
+			pstmt2 = con.prepareStatement(sql);
+			pstmt2.setInt(1, ref);
+			pstmt2.setInt(2, seq);
+			pstmt2.executeUpdate();
+			
+			JdbcUtil.close(pstmt2);
+			
+			//lev, seq  + 1 작업
+			lev++;
+			seq++;
+			
+			//답글 삽입작업
+			// => 글쓰기와 다르게 ref, lev, seq 값은 새로 설정된 값으로 변경
 			sql = "INSERT INTO board VALUES(?,?,?,?,?,?,?,?,?,?,?,now())";
 			
 			pstmt2 = con.prepareStatement(sql);
@@ -374,12 +401,13 @@ public class BoardDAO {
 			pstmt2.setString(5, board.getBoard_content());
 			pstmt2.setString(6, board.getBoard_file());
 			pstmt2.setString(7, board.getBoard_real_file());
-			pstmt2.setInt(8, board_num); //참조 글 번호(글쓰기는 글번호와 동일하게 사용)
-			pstmt2.setInt(9, 0); //들여쓰기 레벨
-			pstmt2.setInt(10, 0); //순서 번호
+			pstmt2.setInt(8, ref); //참조 글 번호(글쓰기는 글번호와 동일하게 사용)
+			pstmt2.setInt(9, lev); //들여쓰기 레벨
+			pstmt2.setInt(10, seq); //순서 번호
 			pstmt2.setInt(11, 0); //조회 수
-			
+		
 			insertCount = pstmt2.executeUpdate();
+
 		} catch (SQLException e) {
 			System.out.println("SQL 구문 오류 - insertReplyBoard");
 			e.printStackTrace();

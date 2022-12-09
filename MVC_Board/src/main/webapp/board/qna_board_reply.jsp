@@ -37,6 +37,14 @@
 		text-align: center;
 	}
 </style>
+<link href="css/default.css" rel ="stylesheet" type="text/css">
+
+</head>
+<body>
+	<header>
+		<!-- Login, Join 표시 영역 -->
+		<jsp:include page="../inc/top.jsp"></jsp:include>
+	</header>
 </head>
 <body>
 	<!-- 게시판 답글 작성 -->
