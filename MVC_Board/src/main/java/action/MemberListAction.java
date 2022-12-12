@@ -22,13 +22,15 @@ public class MemberListAction implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("BoardListAction");
 		
+
+		
 		ActionForward forward = null;
 		MemberListService service = new MemberListService();
 		
 		List<MemberBean> memberList = new ArrayList<MemberBean>();
 		
 		memberList = service.getMemberList();
-		
+		//sId가 admin일 때만 이 페이지를 열 수 있도록 설정.	
 		try {
 			if(memberList.isEmpty()) { // 비었을 떄 true
 				response.setContentType("text/html; charset=UTF-8");
@@ -47,7 +49,7 @@ public class MemberListAction implements Action{
 				
 				
 				forward = new ActionForward();
-				forward.setPath("member/member_list.jsp");
+				forward.setPath("member/member_list.jsp?");
 				forward.setRedirect(false);
 			}
 		} catch (IOException e) {

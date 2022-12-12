@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import encrypt.MyMessageDigest;
 import svc.MemberJoinProService;
 import vo.ActionForward;
 import vo.MemberBean;
@@ -14,7 +15,7 @@ public class MemberJoinProAction implements Action{
 	//
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = null;
-		
+//		request.setCharacterEncoding("UTF-8");
 		MemberJoinProService service = new MemberJoinProService();
 		
 		MemberBean member = new MemberBean();
@@ -24,6 +25,9 @@ public class MemberJoinProAction implements Action{
 		member.setId(request.getParameter("id"));
 		member.setPasswd(request.getParameter("passwd"));
 		System.out.println(member);
+		
+		MyMessageDigest md = new MyMessageDigest("SHA-256");
+		md.hashing(request.getParameter("passwd"));
 		
 		try {
 			boolean isJoinSuccess = service.JoinMember(member);

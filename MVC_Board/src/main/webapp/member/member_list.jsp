@@ -79,6 +79,15 @@
 			<td width="50px">성별</td>
 			<td width="100px">날짜</td>
 		</tr>
+		
+<%-- 		<c:choose> --%>
+<%-- 			<c:when test="${param.pageNum empty }"> --%>
+<%-- 				<c:set var="pageNum" value="1"/> --%>
+<%-- 			</c:when> --%>
+<%-- 			<c:otherwise> --%>
+<%-- 				<c:set var="pageNum" value="${param.pageNum }"/> --%>
+<%-- 			</c:otherwise> --%>
+<%-- 		</c:choose> --%>
 		<!-- 리스트 배포 -->
 		<c:forEach var="member" items="${memberList }">
 			<tr>
@@ -86,7 +95,7 @@
 				<td>${member.id }</td>
 				<td>${member.email }</td>
 				<td>${member.gender }</td>
-				<td>${member.date }</td>
+				<td><fmt:formatDate value="${member.date }" pattern="yyyy-MM-dd"></fmt:formatDate></td>
 			
 			</tr>
 		
@@ -94,13 +103,7 @@
 		</c:forEach>
 	</table>
 	</section>
-	<section id="buttonArea">
-		<form action="BoardList.bo">
-			<input type="text" name="keyword">
-			<input type="submit" value="검색">
-			<input type="button" value="글쓰기" onclick="location.href='BoardWriteForm.bo'" />
-		</form>
-	</section>
+
 	<section id="pageList">
 		<!-- 
 		현재 페이지 번호(pageNum)가 1보다 클 경우에만 [이전] 링크 동작
@@ -109,7 +112,7 @@
 		-->
 		<c:choose>
 			<c:when test="${pageNum > 1}">
-				<input type="button" value="이전" onclick="location.href='BoardList.bo?page=${pageNum - 1}'">
+				<input type="button" value="이전" onclick="location.href='MemberList.bo?pageNum=${pageNum - 1}'">
 			</c:when>
 			<c:otherwise>
 				<input type="button" value="이전">
@@ -125,7 +128,7 @@
 					${i }
 				</c:when>
 				<c:otherwise>
-					<a href="BoardList.bo?pageNum=${i }">${i }</a>
+					<a href="MemberList.bo?pageNum=${i }">${i }</a>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
